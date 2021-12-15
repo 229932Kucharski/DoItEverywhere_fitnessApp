@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
-        backgroundColor: Color(0xFF1f0b53),
+        backgroundColor: const Color(0xFF1f0b53),
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.white,
         items: const [
