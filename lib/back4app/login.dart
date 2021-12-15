@@ -16,71 +16,79 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Image.asset(
-              'assets/logo/die.png',
-              scale: 0.5,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            TextField(
-              controller: controllerUsername,
-              enabled: !isLoggedIn,
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.none,
-              autocorrect: false,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  labelText: 'Username'),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: controllerPassword,
-              enabled: !isLoggedIn,
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.none,
-              autocorrect: false,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  labelText: 'Password'),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            SizedBox(
-              height: 50,
-              child: TextButton(
-                child: const Text('SIGN IN'),
-                onPressed: isLoggedIn ? null : () => doUserLogin(),
+        body: Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/background/bg_01_1.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(
+                'assets/logo/die.png',
+                scale: 0.5,
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            SizedBox(
-              height: 50,
-              child: TextButton(
-                child: const Text('SIGN UP'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/signUp');
-                },
+              const SizedBox(
+                height: 16,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: controllerUsername,
+                enabled: !isLoggedIn,
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black)),
+                    labelText: 'Username'),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              TextField(
+                controller: controllerPassword,
+                enabled: !isLoggedIn,
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black)),
+                    labelText: 'Password'),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(
+                height: 50,
+                child: TextButton(
+                  child: const Text('SIGN IN'),
+                  onPressed: isLoggedIn ? null : () => doUserLogin(),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(
+                height: 50,
+                child: TextButton(
+                  child: const Text('SIGN UP'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signUp');
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ));
