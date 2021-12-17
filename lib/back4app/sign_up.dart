@@ -19,7 +19,7 @@ class _SignUpState extends State<SignUp> {
         body: Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/background/bg_01_1.png"),
+          image: AssetImage("assets/background/bg_01_2.png"),
           fit: BoxFit.cover,
         ),
       ),
@@ -134,7 +134,7 @@ class _SignUpState extends State<SignUp> {
 
     if (response.success) {
       showSuccess();
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pop(context);
     } else {
       showError(response.error!.message);
     }

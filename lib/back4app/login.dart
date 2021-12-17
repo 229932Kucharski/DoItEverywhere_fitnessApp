@@ -1,3 +1,7 @@
+import 'package:die_app/addidtional/route_to_down.dart';
+import 'package:die_app/addidtional/route_to_up.dart';
+import 'package:die_app/back4app/sign_up.dart';
+import 'package:die_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -83,7 +87,11 @@ class _LoginState extends State<Login> {
                 child: TextButton(
                   child: const Text('SIGN UP'),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/signUp');
+                    Navigator.push(
+                        context,
+                        RouteToDown(
+                            exitPage: const Login(),
+                            enterPage: const SignUp()));
                   },
                 ),
               ),
@@ -137,13 +145,12 @@ class _LoginState extends State<Login> {
   void doUserLogin() async {
     final username = controllerUsername.text.trim();
     final password = controllerPassword.text.trim();
-
     final user = ParseUser(username, password, null);
-
     var response = await user.login();
 
     if (response.success) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.push(context,
+          RouteToUp(exitPage: const Login(), enterPage: const HomePage()));
     } else {
       showError(response.error!.message);
     }

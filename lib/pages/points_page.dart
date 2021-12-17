@@ -1,8 +1,10 @@
-import 'package:die_app/widgets/points_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/widgets/points_chart.dart';
 
 class PointsPage extends StatelessWidget {
-  const PointsPage({Key? key}) : super(key: key);
+  const PointsPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class PointsPage extends StatelessWidget {
                 Text(
                   'Your progress',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'SourceCodePro',
                   ),
