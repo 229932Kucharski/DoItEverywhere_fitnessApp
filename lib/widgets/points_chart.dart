@@ -39,41 +39,39 @@ class _PointsChartState extends State<PointsChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SfCircularChart(
-        onCreateShader: (ChartShaderDetails chartShaderDetails) {
-          return ui.Gradient.sweep(
-              chartShaderDetails.outerRect.center,
-              colors,
-              stops,
-              TileMode.clamp,
-              _degreeToRadian(0),
-              _degreeToRadian(360),
-              _resolveTransform(
-                  chartShaderDetails.outerRect, TextDirection.ltr));
-        },
-        tooltipBehavior: _tooltipBehavior,
-        series: <CircularSeries>[
-          RadialBarSeries<PointsData, String>(
-              maximumValue: 100000,
-              radius: '100%',
-              gap: '20',
-              trackOpacity: 0.2,
-              cornerStyle: CornerStyle.bothCurve,
-              dataSource: _chartData,
-              xValueMapper: (PointsData data, _) => data.range,
-              yValueMapper: (PointsData data, _) => data.points,
-              dataLabelMapper: (PointsData data, _) => data.range,
-              dataLabelSettings: const DataLabelSettings(
-                  isVisible: false,
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'SourceCodePro',
-                  ),
-                  labelAlignment: ChartDataLabelAlignment.outer),
-              enableTooltip: true)
-        ],
-      ),
+    return SfCircularChart(
+      onCreateShader: (ChartShaderDetails chartShaderDetails) {
+        return ui.Gradient.sweep(
+            chartShaderDetails.outerRect.center,
+            colors,
+            stops,
+            TileMode.clamp,
+            _degreeToRadian(0),
+            _degreeToRadian(360),
+            _resolveTransform(chartShaderDetails.outerRect, TextDirection.ltr));
+      },
+      tooltipBehavior: _tooltipBehavior,
+      series: <CircularSeries>[
+        RadialBarSeries<PointsData, String>(
+            maximumValue: 100000,
+            radius: '100%',
+            innerRadius: '65%',
+            gap: '10',
+            trackOpacity: 0.2,
+            cornerStyle: CornerStyle.bothCurve,
+            dataSource: _chartData,
+            xValueMapper: (PointsData data, _) => data.range,
+            yValueMapper: (PointsData data, _) => data.points,
+            dataLabelMapper: (PointsData data, _) => data.range,
+            dataLabelSettings: const DataLabelSettings(
+                isVisible: false,
+                textStyle: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'SourceCodePro',
+                ),
+                labelAlignment: ChartDataLabelAlignment.outer),
+            enableTooltip: true)
+      ],
     );
   }
 

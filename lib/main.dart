@@ -3,7 +3,6 @@ import 'package:die_app/pages/home_page.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:die_app/addidtional/fooderlich_theme.dart';
 import 'package:die_app/back4app/login.dart';
-import 'package:die_app/back4app/sign_up.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,6 @@ class DieApp extends StatelessWidget {
     //Checks whether the user's session token is valid
     final ParseResponse? parseResponse =
         await ParseUser.getCurrentUserFromServer(currentUser.sessionToken!);
-
     if (parseResponse?.success == null || !parseResponse!.success) {
       //Invalid session. Logout
       await currentUser.logout();
@@ -65,11 +63,6 @@ class DieApp extends StatelessWidget {
                 }
             }
           }),
-      routes: <String, WidgetBuilder>{
-        '/signUp': (context) => SignUp(),
-        '/login': (context) => const Login(),
-        '/home': (context) => const HomePage(),
-      },
     );
   }
 }
