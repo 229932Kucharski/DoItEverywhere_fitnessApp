@@ -123,6 +123,13 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  Future<void> createUserPoints(ParseUser user) async {
+    final todo = ParseObject('UserPoints')
+      ..set('userId', user)
+      ..set('points', 50000);
+    await todo.save();
+  }
+
   void doUserRegistration() async {
     final username = controllerUsername.text.trim();
     final email = controllerEmail.text.trim();
@@ -133,6 +140,7 @@ class _SignUpState extends State<SignUp> {
     var response = await user.signUp();
 
     if (response.success) {
+      await createUserPoints(user);
       showSuccess();
       Navigator.pop(context);
     } else {
