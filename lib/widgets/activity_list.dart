@@ -46,6 +46,7 @@ class _ActivityListState extends State<ActivityList> {
             name: name, icon: icon, points: points, isGpsRequired: isGpsReq);
         tempActivities.add(act);
       }
+      tempActivities.sort((a, b) => a.name!.compareTo(b.name!));
       activities = tempActivities;
       return activities;
     }
