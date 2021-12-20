@@ -21,8 +21,8 @@ class _PointsChartState extends State<PointsChart> {
     currentUser = await ParseUser.currentUser() as ParseUser?;
 
     QueryBuilder<ParseObject> queryUserPoints =
-        QueryBuilder<ParseObject>(ParseObject('UserPoints'))
-          ..whereEqualTo('userId', currentUser);
+        QueryBuilder<ParseObject>(ParseObject('UserData'))
+          ..whereEqualTo('user', currentUser);
     final ParseResponse apiResponse = await queryUserPoints.query();
     List<ParseObject> objects = apiResponse.results as List<ParseObject>;
     return objects[0];

@@ -124,10 +124,10 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future<void> createUserPoints(ParseUser user) async {
-    final todo = ParseObject('UserPoints')
-      ..set('userId', user)
+    final todo = ParseObject('UserData')
+      ..set('user', user)
       ..set('points', 50000);
-    await todo.save();
+    var response = await todo.save();
   }
 
   void doUserRegistration() async {
@@ -141,7 +141,6 @@ class _SignUpState extends State<SignUp> {
 
     if (response.success) {
       await createUserPoints(user);
-      showSuccess();
       Navigator.pop(context);
     } else {
       showError(response.error!.message);

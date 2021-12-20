@@ -35,8 +35,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
     String? id;
     int? currentPoints;
     QueryBuilder<ParseObject> queryUserPoints =
-        QueryBuilder<ParseObject>(ParseObject('UserPoints'))
-          ..whereEqualTo('userId', currentUser);
+        QueryBuilder<ParseObject>(ParseObject('UserData'))
+          ..whereEqualTo('user', currentUser);
     final ParseResponse apiResponse = await queryUserPoints.query();
 
     List<ParseObject> objects = apiResponse.results as List<ParseObject>;
@@ -44,7 +44,7 @@ class _ChosenActivityState extends State<ChosenActivity> {
       id = object.objectId;
       currentPoints = object.get('points');
     }
-    var user = ParseObject('UserPoints')
+    var user = ParseObject('UserData')
       ..objectId = id
       ..set('points', currentPoints! + points);
     await user.save();
