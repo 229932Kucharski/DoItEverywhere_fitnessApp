@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
 
-String? username = globals.username;
-
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
 
@@ -22,7 +20,7 @@ class UserPage extends StatelessWidget {
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 150.0, bottom: 140.0),
+                padding: const EdgeInsets.only(top: 120.0, bottom: 90.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,
@@ -40,7 +38,7 @@ class UserPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Text(
-                            "Hello $username!",
+                            "Hello ${globals.username}!",
                             style: const TextStyle(
                               fontSize: 20,
                               fontFamily: 'SourceCodePro',
