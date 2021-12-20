@@ -20,7 +20,7 @@ class UserPage extends StatelessWidget {
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 120.0, bottom: 90.0),
+                padding: const EdgeInsets.only(top: 100.0, bottom: 80.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,
