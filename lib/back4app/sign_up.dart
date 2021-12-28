@@ -127,7 +127,7 @@ class _SignUpState extends State<SignUp> {
     final todo = ParseObject('UserData')
       ..set('user', user)
       ..set('points', 50000);
-    var response = await todo.save();
+    await todo.save();
   }
 
   void doUserRegistration() async {

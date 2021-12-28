@@ -1,9 +1,16 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:die_app/widgets/activity_location.dart';
 import 'package:die_app/widgets/activity_timer.dart';
 import 'package:die_app/widgets/activity_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
+
+class ChosenActivityController {
+  late void Function() listenLocation;
+  late void Function() stopLocation;
+  late void Function() resetLastLocation;
+}
 
 class ChosenActivity extends StatefulWidget {
   const ChosenActivity({
@@ -15,6 +22,7 @@ class ChosenActivity extends StatefulWidget {
 }
 
 class _ChosenActivityState extends State<ChosenActivity> {
+  final ChosenActivityController myController = ChosenActivityController();
   ParseUser? currentUser;
   bool isStop = true;
   bool isPlay = false;
@@ -52,11 +60,12 @@ class _ChosenActivityState extends State<ChosenActivity> {
 
   Future<void> saveData() async {
     await getUser();
+    double distance = double.parse((totalDistance).toStringAsFixed(2));
     final userActivity = ParseObject('UserActivity')
       ..set("userId", currentUser)
       ..set('activityName', chosenActivityName)
       ..set('activityTime', seconds)
-      ..set('activityDistance', 0)
+      ..set('activityDistance', distance)
       ..set('gainedPoints', points);
     await userActivity.save();
   }
@@ -107,60 +116,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
               const SizedBox(
                 height: 50,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      const Text("Speed",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'SourceCodePro',
-                              fontWeight: FontWeight.bold)),
-                      (chosenActivity!.isGpsRequired!)
-                          ? const Text("0,00km/h",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontFamily: 'SourceCodePro',
-                                fontStyle: FontStyle.italic,
-                              ))
-                          : const Text("-",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontFamily: 'SourceCodePro',
-                                fontStyle: FontStyle.italic,
-                              )),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text("Distance",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'SourceCodePro',
-                              fontWeight: FontWeight.bold)),
-                      (chosenActivity!.isGpsRequired!)
-                          ? const Text("0m",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontFamily: 'SourceCodePro',
-                                fontStyle: FontStyle.italic,
-                              ))
-                          : const Text("-",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontFamily: 'SourceCodePro',
-                                fontStyle: FontStyle.italic,
-                              )),
-                    ],
-                  )
-                ],
+              ActivityLocation(
+                controller: myController,
               ),
               const SizedBox(
                 height: 30,
@@ -191,6 +148,7 @@ class _ChosenActivityState extends State<ChosenActivity> {
                                 .add(StopWatchExecute.reset);
                             await saveData();
                             await updateUser();
+                            totalDistance = 0;
                             Navigator.pop(context);
                           },
                           iconSize: 60,
@@ -225,6 +183,9 @@ class _ChosenActivityState extends State<ChosenActivity> {
                         isStop = false;
                       });
                       stopWatchTimer.onExecute.add(StopWatchExecute.start);
+                      (chosenActivity?.isGpsRequired == true)
+                          ? myController.listenLocation()
+                          : null;
                     },
                     icon: ImageIcon(
                       const AssetImage("assets/icons/play.png"),
@@ -239,6 +200,7 @@ class _ChosenActivityState extends State<ChosenActivity> {
                             if (await confirm(context)) {
                               stopWatchTimer.onExecute
                                   .add(StopWatchExecute.reset);
+                              totalDistance = 0;
                               Navigator.pop(context);
                             }
                           },
@@ -258,6 +220,12 @@ class _ChosenActivityState extends State<ChosenActivity> {
                       });
                       getTime();
                       stopWatchTimer.onExecute.add(StopWatchExecute.stop);
+                      (chosenActivity?.isGpsRequired == true)
+                          ? {
+                              myController.stopLocation(),
+                              myController.resetLastLocation()
+                            }
+                          : null;
                     },
                     icon: ImageIcon(
                       const AssetImage("assets/icons/pause.png"),
@@ -274,6 +242,7 @@ class _ChosenActivityState extends State<ChosenActivity> {
 
   @override
   void dispose() async {
+    myController.stopLocation();
     super.dispose();
   }
 }

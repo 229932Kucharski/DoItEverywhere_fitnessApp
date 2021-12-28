@@ -24,8 +24,13 @@ class _PointsChartState extends State<PointsChart> {
         QueryBuilder<ParseObject>(ParseObject('UserData'))
           ..whereEqualTo('user', currentUser);
     final ParseResponse apiResponse = await queryUserPoints.query();
-    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-    return objects[0];
+    if (apiResponse.success) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      return objects[0];
+    } else {
+      showError(apiResponse.error!.message);
+    }
+    return null;
   }
 
   @override
@@ -102,6 +107,27 @@ class _PointsChartState extends State<PointsChart> {
 
   // Convert degree to radian
   double _degreeToRadian(int deg) => deg * (3.141592653589793 / 180);
+
+  void showError(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+              "Some error occured! Please check your internet connection and try again"),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class PointsData {
