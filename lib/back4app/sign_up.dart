@@ -126,7 +126,8 @@ class _SignUpState extends State<SignUp> {
   Future<void> createUserPoints(ParseUser user) async {
     final todo = ParseObject('UserData')
       ..set('user', user)
-      ..set('points', 50000);
+      ..set('points', 50000)
+      ..set('pointsUpdatedAt', DateTime.now());
     await todo.save();
   }
 

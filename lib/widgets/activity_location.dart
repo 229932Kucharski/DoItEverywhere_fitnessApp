@@ -16,6 +16,7 @@ class ActivityLocation extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state
   _ActivityLocationState createState() => _ActivityLocationState(controller);
 }
 
@@ -42,76 +43,73 @@ class _ActivityLocationState extends State<ActivityLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              const Text("Speed",
-                  style: TextStyle(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(
+          children: [
+            const Text("Speed",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'SourceCodePro',
+                    fontWeight: FontWeight.bold)),
+            (chosenActivity!.isGpsRequired!)
+                ? (!currentSpeed.isInfinite)
+                    ? Text(currentSpeed.toStringAsFixed(2) + "km/h",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: 'SourceCodePro',
+                          fontStyle: FontStyle.italic,
+                        ))
+                    : const Text("0.00km/h",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontFamily: 'SourceCodePro',
+                          fontStyle: FontStyle.italic,
+                        ))
+                : const Text("-",
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 25,
                       fontFamily: 'SourceCodePro',
-                      fontWeight: FontWeight.bold)),
-              (chosenActivity!.isGpsRequired!)
-                  ? (!currentSpeed.isInfinite)
-                      ? Text(currentSpeed.toStringAsFixed(2) + "km/h",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontFamily: 'SourceCodePro',
-                            fontStyle: FontStyle.italic,
-                          ))
-                      : const Text("0.00km/h",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontFamily: 'SourceCodePro',
-                            fontStyle: FontStyle.italic,
-                          ))
-                  : const Text("-",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: 'SourceCodePro',
-                        fontStyle: FontStyle.italic,
-                      )),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Distance",
-                  style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                    )),
+          ],
+        ),
+        Column(
+          children: [
+            const Text("Distance",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'SourceCodePro',
+                    fontWeight: FontWeight.bold)),
+            (chosenActivity!.isGpsRequired!)
+                ? Text(totalDistance.toStringAsFixed(2) + "km",
+                    style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 25,
                       fontFamily: 'SourceCodePro',
-                      fontWeight: FontWeight.bold)),
-              (chosenActivity!.isGpsRequired!)
-                  ? Text(totalDistance.toStringAsFixed(2) + "km",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: 'SourceCodePro',
-                        fontStyle: FontStyle.italic,
-                      ))
-                  : const Text("-",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: 'SourceCodePro',
-                        fontStyle: FontStyle.italic,
-                      )),
-            ],
-          )
-        ],
-      ),
+                      fontStyle: FontStyle.italic,
+                    ))
+                : const Text("-",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontFamily: 'SourceCodePro',
+                      fontStyle: FontStyle.italic,
+                    )),
+          ],
+        )
+      ],
     );
   }
 
   Future<void> listenLocation() async {
     locationSubscription = location.onLocationChanged.handleError((onError) {
-      print(onError);
       locationSubscription?.cancel();
       setState(() {
         locationSubscription = null;
@@ -155,7 +153,6 @@ class _ActivityLocationState extends State<ActivityLocation> {
   _requestPermission() async {
     var status = await Permission.location.request();
     if (status.isGranted) {
-      print('Location permission granted');
     } else if (status.isDenied) {
       _requestPermission();
     } else if (status.isPermanentlyDenied) {

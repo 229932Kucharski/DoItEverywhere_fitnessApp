@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+int? points;
+
 class PointsChart extends StatefulWidget {
   const PointsChart({Key? key}) : super(key: key);
 
@@ -19,18 +21,53 @@ class _PointsChartState extends State<PointsChart> {
 
   Future<ParseObject?> getUser() async {
     currentUser = await ParseUser.currentUser() as ParseUser?;
-
     QueryBuilder<ParseObject> queryUserPoints =
         QueryBuilder<ParseObject>(ParseObject('UserData'))
           ..whereEqualTo('user', currentUser);
     final ParseResponse apiResponse = await queryUserPoints.query();
     if (apiResponse.success) {
       List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      DateTime updatedAt =
+          DateTime.parse((objects[0].get('pointsUpdatedAt')).toString());
+      int diff = DateTime.now().difference(updatedAt).inDays;
+      if (diff > 0) {
+        int pointsToRemove = diff * 10000;
+        int currentPoints = objects[0].get('points');
+        currentPoints = currentPoints - pointsToRemove;
+        if (currentPoints < 0) currentPoints = 0;
+        await updateUser(currentPoints);
+        QueryBuilder<ParseObject> queryUserPoints =
+            QueryBuilder<ParseObject>(ParseObject('UserData'))
+              ..whereEqualTo('user', currentUser);
+        final ParseResponse apiResponse = await queryUserPoints.query();
+        if (apiResponse.success) {
+          objects = apiResponse.results as List<ParseObject>;
+        }
+      }
+      points = objects[0].get('points');
       return objects[0];
     } else {
       showError(apiResponse.error!.message);
     }
     return null;
+  }
+
+  Future<void> updateUser(int points) async {
+    String? id;
+    QueryBuilder<ParseObject> queryUserPoints =
+        QueryBuilder<ParseObject>(ParseObject('UserData'))
+          ..whereEqualTo('user', currentUser);
+    final ParseResponse apiResponse = await queryUserPoints.query();
+
+    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+    for (ParseObject object in objects) {
+      id = object.objectId;
+    }
+    var user = ParseObject('UserData')
+      ..objectId = id
+      ..set('points', points)
+      ..set('pointsUpdatedAt', DateTime.now());
+    await user.save();
   }
 
   @override
