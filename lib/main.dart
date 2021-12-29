@@ -25,6 +25,7 @@ class DieApp extends StatelessWidget {
       return false;
     } else {
       globals.username = currentUser.username;
+      globals.registerDate = currentUser.createdAt;
     }
     //Checks whether the user's session token is valid
     final ParseResponse? parseResponse =

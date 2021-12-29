@@ -1,4 +1,8 @@
+import 'package:die_app/pages/user_data_page.dart';
+import 'package:die_app/pages/user_social_page.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/addidtional/route_to_down.dart';
+import 'package:die_app/pages/user_info_page.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserPage extends StatelessWidget {
@@ -20,7 +24,7 @@ class UserPage extends StatelessWidget {
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 100.0, bottom: 80.0),
+                padding: const EdgeInsets.only(top: 90.0, bottom: 70.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,
@@ -36,7 +40,7 @@ class UserPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
+                          padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
                             "Hello ${globals.username}!",
                             style: const TextStyle(
@@ -63,7 +67,13 @@ class UserPage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    RouteToDown(
+                                        exitPage: this,
+                                        enterPage: const UserInfoPage()));
+                              },
                               child:
                                   const Icon(Icons.contacts_rounded, size: 60),
                               style: ButtonStyle(
@@ -121,7 +131,13 @@ class UserPage extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                     left: 50.0, top: 30.0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        RouteToDown(
+                                            exitPage: this,
+                                            enterPage: const UserSocialPage()));
+                                  },
                                   child: const Icon(Icons.people, size: 40),
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(
@@ -181,7 +197,13 @@ class UserPage extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(left: 35.0, top: 40.0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    RouteToDown(
+                                        exitPage: this,
+                                        enterPage: const UserDataPage()));
+                              },
                               child: const Icon(Icons.menu, size: 30),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(

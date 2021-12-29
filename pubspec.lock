@@ -176,7 +176,7 @@ packages:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   http:
     dependency: transitive
     description:
@@ -351,7 +351,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.11"
   path_provider_ios:
     dependency: transitive
     description:
@@ -552,14 +552,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.3.59"
+    version: "19.4.40"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.3.59"
+    version: "19.4.40"
   synchronized:
     dependency: transitive
     description:
@@ -615,7 +615,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.3"
   xdg_directories:
     dependency: transitive
     description:
