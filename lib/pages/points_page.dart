@@ -1,3 +1,4 @@
+import 'package:die_app/widgets/points_text.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/widgets/points_chart.dart';
 
@@ -28,13 +29,7 @@ class PointsPage extends StatelessWidget {
                   ),
                 ),
                 PointsChart(),
-                Text(
-                  'Wow! Keep it up!',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'SourceCodePro',
-                  ),
-                ),
+                PointsText(),
               ],
             )));
   }
