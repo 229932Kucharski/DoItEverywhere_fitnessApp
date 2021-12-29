@@ -1,7 +1,7 @@
 import 'package:die_app/addidtional/route_to_up.dart';
 import 'package:die_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+// import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserDataPage extends StatelessWidget {
   const UserDataPage({Key? key}) : super(key: key);

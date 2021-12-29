@@ -1,7 +1,7 @@
 import 'package:die_app/addidtional/route_to_up.dart';
 import 'package:die_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+// import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserSocialPage extends StatelessWidget {
   const UserSocialPage({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class UserSocialPage extends StatelessWidget {
                                   fontWeight: FontWeight.w800,
                                   color: Colors.amber[800]),
                             )),
-                          ], rows: [
+                          ], rows: const [
                             DataRow(cells: [
                               DataCell(Text('Adam Nowak')),
                               DataCell(Text('30')),
