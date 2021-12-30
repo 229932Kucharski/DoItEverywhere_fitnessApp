@@ -27,33 +27,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: const [
-          PointsPage(),
-          ActivityPage(),
-          UserPage(),
-        ],
-        onPageChanged: onPageChanged,
-        physics: const NeverScrollableScrollPhysics(),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _onItemTapped,
-        backgroundColor: const Color(0xFF1f0b53),
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.white,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.run_circle), label: "Activity"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
-        ],
-        currentIndex: _selectedIndex,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: PageView(
+          controller: _pageController,
+          children: const [
+            PointsPage(),
+            ActivityPage(),
+            UserPage(),
+          ],
+          onPageChanged: onPageChanged,
+          physics: const NeverScrollableScrollPhysics(),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _onItemTapped,
+          backgroundColor: const Color(0xFF1f0b53),
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: Colors.white,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.run_circle), label: "Activity"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
+          ],
+          currentIndex: _selectedIndex,
+        ),
       ),
     );
   }
