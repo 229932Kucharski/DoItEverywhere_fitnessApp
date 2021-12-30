@@ -1,5 +1,5 @@
-import 'package:die_app/addidtional/route_to_up.dart';
-import 'package:die_app/pages/user_page.dart';
+// import 'package:die_app/addidtional/route_to_up.dart';
+// import 'package:die_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
 
@@ -41,11 +41,7 @@ class UserInfoPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  RouteToUp(
-                                      exitPage: this,
-                                      enterPage: const UserPage()));
+                              Navigator.pop(context);
                             },
                             child: const Icon(Icons.contacts_rounded, size: 60),
                             style: ButtonStyle(

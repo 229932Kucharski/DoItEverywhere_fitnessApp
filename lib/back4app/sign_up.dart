@@ -24,69 +24,84 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
       child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(
-                height: 16,
-              ),
-              const Center(
-                child:
-                    Text('Create an account', style: TextStyle(fontSize: 16)),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: controllerUsername,
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.none,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black)),
-                    labelText: 'Username'),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              TextField(
-                controller: controllerEmail,
-                keyboardType: TextInputType.emailAddress,
-                textCapitalization: TextCapitalization.none,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black)),
-                    labelText: 'E-mail'),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              TextField(
-                controller: controllerPassword,
-                obscureText: true,
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.none,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black)),
-                    labelText: 'Password'),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SizedBox(
-                height: 50,
-                child: TextButton(
-                  child: const Text('SIGN UP'),
-                  onPressed: () => doUserRegistration(),
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height: 16,
                 ),
-              )
-            ],
+                const Center(
+                  child: Text(
+                    'Create an account',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: 'SourceCodePro',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  controller: controllerUsername,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.none,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      labelText: 'Username'),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  controller: controllerEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  textCapitalization: TextCapitalization.none,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      labelText: 'E-mail'),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  controller: controllerPassword,
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.none,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      labelText: 'Password'),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: TextButton(
+                    child: const Text(
+                      'SIGN UP',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'SourceCodePro',
+                        color: Color(0xFFFF9505),
+                      ),
+                    ),
+                    onPressed: () => doUserRegistration(),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

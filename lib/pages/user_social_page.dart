@@ -1,5 +1,7 @@
-import 'package:die_app/addidtional/route_to_up.dart';
+import 'package:die_app/addidtional/route_to_down.dart';
+import 'package:die_app/pages/user_add_friend_page.dart';
 import 'package:die_app/pages/user_page.dart';
+import 'package:die_app/widgets/user_friends_list.dart';
 import 'package:flutter/material.dart';
 // import 'package:die_app/addidtional/globals.dart' as globals;
 
@@ -41,11 +43,7 @@ class UserSocialPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  RouteToUp(
-                                      exitPage: this,
-                                      enterPage: const UserPage()));
+                              Navigator.pop(context);
                             },
                             child: const Icon(Icons.people, size: 60),
                             style: ButtonStyle(
@@ -73,160 +71,78 @@ class UserSocialPage extends StatelessWidget {
               ),
 
               // part with buttons //
-              SizedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
+              const UserFriendsList(),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, //Center Row contents horizontally,
                     children: [
-                      SizedBox(
-                        width: 300.0,
-                        height: 300.0,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: DataTable(columns: [
-                            DataColumn(
-                                label: Text(
-                              'Name',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.amber[800]),
-                            )),
-                            DataColumn(
-                                label: Text(
-                              'Points',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.amber[800]),
-                            )),
-                          ], rows: const [
-                            DataRow(cells: [
-                              DataCell(Text('Adam Nowak')),
-                              DataCell(Text('30')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Dawid Nowy')),
-                              DataCell(Text('21')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Andrzej Konieczny')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Jacek Piekarz')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('Tomek Szybki')),
-                              DataCell(Text('29')),
-                            ]),
-                          ]),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 35, top: 30),
+                        child: SizedBox(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  RouteToDown(
+                                      exitPage: this,
+                                      enterPage: const UserPage()));
+                            },
+                            child: const Icon(Icons.groups, size: 50),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                  const CircleBorder()),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(25)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.deepPurple[800]), // <-- Button color
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color?>(
+                                (states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.amber[800];
+                                  } // <-- Splash color
+                                },
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .center, //Center Row contents horizontally,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 35, top: 30),
-                                child: SizedBox(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          RouteToUp(
-                                              exitPage: this,
-                                              enterPage: const UserPage()));
-                                    },
-                                    child: const Icon(Icons.groups, size: 50),
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                          const CircleBorder()),
-                                      padding: MaterialStateProperty.all(
-                                          const EdgeInsets.all(25)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.deepPurple[
-                                                  800]), // <-- Button color
-                                      overlayColor: MaterialStateProperty
-                                          .resolveWith<Color?>(
-                                        (states) {
-                                          if (states.contains(
-                                              MaterialState.pressed)) {
-                                            return Colors.amber[800];
-                                          } // <-- Splash color
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 35, top: 30),
+                        child: SizedBox(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  RouteToDown(
+                                      exitPage: this,
+                                      enterPage: const UserAddFriendPage()));
+                            },
+                            child:
+                                const Icon(Icons.group_add_rounded, size: 50),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                  const CircleBorder()),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(25)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.deepPurple[800]), // <-- Button color
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color?>(
+                                (states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.amber[800];
+                                  } // <-- Splash color
+                                },
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 35, top: 30),
-                                child: SizedBox(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          RouteToUp(
-                                              exitPage: this,
-                                              enterPage: const UserPage()));
-                                    },
-                                    child: const Icon(Icons.group_add_rounded,
-                                        size: 50),
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                          const CircleBorder()),
-                                      padding: MaterialStateProperty.all(
-                                          const EdgeInsets.all(25)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.deepPurple[
-                                                  800]), // <-- Button color
-                                      overlayColor: MaterialStateProperty
-                                          .resolveWith<Color?>(
-                                        (states) {
-                                          if (states.contains(
-                                              MaterialState.pressed)) {
-                                            return Colors.amber[800];
-                                          } // <-- Splash color
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ))
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-              ),
+                  ))
             ],
           ),
         ),

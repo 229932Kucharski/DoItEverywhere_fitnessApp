@@ -41,11 +41,7 @@ class UserDataPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  RouteToUp(
-                                      exitPage: this,
-                                      enterPage: const UserPage()));
+                              Navigator.pop(context);
                             },
                             child: const Icon(Icons.menu, size: 60),
                             style: ButtonStyle(
