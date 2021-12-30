@@ -68,7 +68,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
       ..set('activityName', chosenActivityName)
       ..set('activityTime', seconds)
       ..set('activityDistance', distance)
-      ..set('gainedPoints', points);
+      ..set('gainedPoints', points)
+      ..set('activityIcon', chosenActivity!.icon);
     await userActivity.save();
   }
 

@@ -1,5 +1,7 @@
 import 'package:die_app/pages/user_data_page.dart';
+import 'package:die_app/pages/user_history_page.dart';
 import 'package:die_app/pages/user_social_page.dart';
+import 'package:die_app/widgets/logout_button.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/pages/user_info_page.dart';
@@ -22,9 +24,16 @@ class UserPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [LogoutButton()],
+                ),
+              ),
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 90.0, bottom: 70.0),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 70.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,
@@ -170,7 +179,13 @@ class UserPage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 30.0),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    RouteToDown(
+                                        exitPage: this,
+                                        enterPage: const UserHistoryPage()));
+                              },
                               child: const Icon(Icons.history, size: 40),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(
