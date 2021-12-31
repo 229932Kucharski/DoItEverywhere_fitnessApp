@@ -141,8 +141,17 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
             ),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Padding(
+            padding: EdgeInsets.only(left: 35, right: 35, top: 120, bottom: 10),
+            child: Text(
+              'History is empty.\n\nDo some acitvities and come back later',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'SourceCodePro',
+              ),
+            ),
           );
         }
       },
