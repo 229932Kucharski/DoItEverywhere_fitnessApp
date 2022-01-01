@@ -5,6 +5,7 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 String? chosenActivityName;
 Activity? chosenActivity;
 List<Activity> activities = [];
+bool isRestartNeeded = true;
 
 class ActivityList extends StatefulWidget {
   const ActivityList({Key? key}) : super(key: key);
@@ -27,11 +28,33 @@ class _ActivityListState extends State<ActivityList> {
     }
   }
 
+  Future<List?> readFavActivities() async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    QueryBuilder<ParseObject> queryUserPoints =
+        QueryBuilder<ParseObject>(ParseObject('UserFavAct'))
+          ..whereEqualTo('user', currentUser);
+    final ParseResponse apiResponse = await queryUserPoints.query();
+    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+    if (apiResponse.success) {
+      if (objects == null) {
+        return [];
+      } else {
+        return objects[0].get<List>('activities');
+      }
+    } else {
+      return [];
+    }
+  }
+
   Future<List<Activity>> readActivities() async {
-    if (activities.isNotEmpty) {
+    if (isRestartNeeded == false) {
       return activities;
     }
+    print("czytam aktywnosci");
+    isRestartNeeded = false;
+    List? favActivitiesNames = await readFavActivities();
     List<Activity> tempActivities = [];
+    List<Activity> favActivities = [];
     QueryBuilder<ParseObject> queryActivities =
         QueryBuilder<ParseObject>(ParseObject('Activity'));
     final ParseResponse apiResponse = await queryActivities.query();
@@ -44,9 +67,17 @@ class _ActivityListState extends State<ActivityList> {
         bool? isGpsReq = activity.get<bool>('isGpsRequired');
         Activity act = Activity(
             name: name, icon: icon, points: points, isGpsRequired: isGpsReq);
-        tempActivities.add(act);
+        if (favActivitiesNames!.contains(name)) {
+          favActivities.add(act);
+          continue;
+        } else {
+          tempActivities.add(act);
+        }
       }
       tempActivities.sort((a, b) => a.name!.compareTo(b.name!));
+      for (Activity act in favActivities) {
+        tempActivities.insert(0, act);
+      }
       activities = tempActivities;
       return activities;
     }

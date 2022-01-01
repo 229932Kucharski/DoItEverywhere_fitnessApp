@@ -4,6 +4,7 @@ import 'package:die_app/back4app/sign_up.dart';
 import 'package:die_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -150,6 +151,9 @@ class _LoginState extends State<Login> {
     var response = await user.login();
 
     if (response.success) {
+      ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+      globals.username = currentUser?.username;
+      globals.registerDate = currentUser?.createdAt;
       Navigator.push(context,
           RouteToUp(exitPage: const Login(), enterPage: const HomePage()));
     } else {

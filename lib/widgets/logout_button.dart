@@ -1,4 +1,6 @@
 import 'package:die_app/back4app/login.dart';
+import 'package:die_app/widgets/activity_list.dart';
+import 'package:die_app/widgets/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -14,6 +16,9 @@ class _LogoutButtonState extends State<LogoutButton> {
     var response =
         await (await ParseUser.currentUser() as ParseUser?)!.logout();
     if (response.success) {
+      readedActivities = [];
+      selectedFav = List.generate(activities.length, (i) => false);
+      isRestartNeeded = true;
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

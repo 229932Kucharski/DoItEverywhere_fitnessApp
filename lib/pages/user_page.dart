@@ -1,4 +1,5 @@
 import 'package:die_app/pages/user_data_page.dart';
+import 'package:die_app/pages/user_favourites_page.dart';
 import 'package:die_app/pages/user_history_page.dart';
 import 'package:die_app/pages/user_social_page.dart';
 import 'package:die_app/widgets/logout_button.dart';
@@ -112,7 +113,13 @@ class UserPage extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                     left: 10.0, top: 30.0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        RouteToDown(
+                                            exitPage: this,
+                                            enterPage: const UserFavourites()));
+                                  },
                                   child: const Icon(Icons.favorite, size: 50),
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(

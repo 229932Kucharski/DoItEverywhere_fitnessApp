@@ -12,7 +12,7 @@ class PointsText extends StatefulWidget {
 
 class _PointsTextState extends State<PointsText> {
   Future<String> getText() async {
-    await Future.delayed(const Duration(milliseconds: 1200));
+    await Future.delayed(const Duration(milliseconds: 1500));
     if (points == 100000) {
       return "Wow 100%";
     } else if (points! > 90000) {

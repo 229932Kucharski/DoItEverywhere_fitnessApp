@@ -146,6 +146,13 @@ class _SignUpState extends State<SignUp> {
     await todo.save();
   }
 
+  Future<void> createUserFavAct(ParseUser user) async {
+    final todo = ParseObject('UserFavAct')
+      ..set('user', user)
+      ..set('activities', []);
+    await todo.save();
+  }
+
   void doUserRegistration() async {
     final username = controllerUsername.text.trim();
     final email = controllerEmail.text.trim();
@@ -157,6 +164,7 @@ class _SignUpState extends State<SignUp> {
 
     if (response.success) {
       await createUserPoints(user);
+      await createUserFavAct(user);
       Navigator.pop(context);
     } else {
       showError(response.error!.message);
