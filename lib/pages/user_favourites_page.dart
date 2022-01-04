@@ -1,4 +1,3 @@
-import 'package:die_app/models/activity.dart';
 import 'package:die_app/widgets/activity_list.dart';
 import 'package:die_app/widgets/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
@@ -10,17 +9,13 @@ class UserFavourites extends StatelessWidget {
 
   Future<void> saveFavActivities() async {
     List<String?> favActivity = [];
-    print("Zapisywanie fav");
-    print(selectedFav);
     for (int i = 0; i < selectedFav.length; i++) {
       if (selectedFav[i] == true) {
-        print(activities[i].name);
         favActivity.add(activities[i].name);
       }
     }
     Function eq = const ListEquality().equals;
     if (eq(readedActivities, favActivity)) {
-      print("No change in fav activities. Not saving...");
       return;
     }
     ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
@@ -39,9 +34,6 @@ class UserFavourites extends StatelessWidget {
       readedActivities = [];
       selectedFav = List.generate(activities.length, (i) => false);
       isRestartNeeded = true;
-      print("Saving new fav activities" + favActivity.toString());
-    } else {
-      print('Object updated with failed: ${parseResponse.error.toString()}');
     }
   }
 

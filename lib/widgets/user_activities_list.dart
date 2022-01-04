@@ -45,8 +45,6 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
             activityIcon: icon);
         userActivities.add(userActivity);
       }
-    } else {
-      print(apiResponse.error!.message);
     }
     userActivities = userActivities.reversed.toList();
     return userActivities;
@@ -62,7 +60,7 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
     return FutureBuilder<List<UserActivity>>(
       future: getUserActivities(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.done) {
           return Padding(
             padding:
                 const EdgeInsets.only(left: 25, right: 25, top: 25, bottom: 10),
@@ -140,7 +138,7 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
               ),
             ),
           );
-        } else {
+        } else if (snapshot.connectionState == ConnectionState.none) {
           return const Padding(
             padding: EdgeInsets.only(left: 35, right: 35, top: 120, bottom: 10),
             child: Text(
@@ -154,6 +152,15 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
             ),
           );
         }
+        return Column(children: const [
+          SizedBox(
+            height: 130,
+          ),
+          CircularProgressIndicator(),
+          SizedBox(
+            height: 159,
+          )
+        ]);
       },
     );
   }

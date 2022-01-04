@@ -1,8 +1,8 @@
-import 'package:die_app/widgets/user_add_friend_widget.dart';
+import 'package:die_app/widgets/user_invitations_widget.dart';
 import 'package:flutter/material.dart';
 
-class UserAddFriendPage extends StatelessWidget {
-  const UserAddFriendPage({Key? key}) : super(key: key);
+class UserInvitationsPage extends StatelessWidget {
+  const UserInvitationsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class UserAddFriendPage extends StatelessWidget {
               children: [
                 // part with avatar //
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
+                  padding: const EdgeInsets.only(top: 50.0),
                   child: SizedBox(
                     child: Align(
                       alignment: Alignment.center,
@@ -44,7 +44,7 @@ class UserAddFriendPage extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Icon(Icons.group, size: 60),
+                              child: const Icon(Icons.groups, size: 60),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(
                                     const CircleBorder()),
@@ -64,7 +64,7 @@ class UserAddFriendPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const UserAddFriendWidget(),
+                          const UserInvitationWidget(),
                         ],
                       ),
                     ),

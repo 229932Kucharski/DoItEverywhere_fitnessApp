@@ -29,7 +29,7 @@ class UserPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, top: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [LogoutButton()],
+                  children: const [LogoutButton()],
                 ),
               ),
               // part with avatar //

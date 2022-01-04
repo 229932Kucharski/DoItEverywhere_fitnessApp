@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class UserAddFriendWidget extends StatefulWidget {
   const UserAddFriendWidget({Key? key}) : super(key: key);
@@ -9,6 +10,52 @@ class UserAddFriendWidget extends StatefulWidget {
 
 class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
   final controllerUsername = TextEditingController();
+
+  Future<ParseObject?> findUser(String username) async {
+    QueryBuilder<ParseObject> queryUsers =
+        QueryBuilder<ParseObject>(ParseUser.forQuery())
+          ..whereEqualTo('username', username);
+    final ParseResponse apiResponse = await queryUsers.query();
+    if (apiResponse.success) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      // ignore: unnecessary_null_comparison
+      if (objects == null) {
+        return null;
+      }
+      return objects[0];
+    }
+    return null;
+  }
+
+  Future<bool> checkIfInviteAlreadyExists(
+      ParseObject user, ParseUser currentUser) async {
+    QueryBuilder<ParseObject> queryInvites =
+        QueryBuilder<ParseObject>(ParseObject('UserInvites'))
+          ..whereEqualTo('user', user)
+          ..whereEqualTo('inviteFrom', currentUser);
+    final ParseResponse apiResponse = await queryInvites.query();
+    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+    // ignore: unnecessary_null_comparison
+    if (objects == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Future<void> inviteUser(ParseObject user) async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    if (currentUser!.get('username') == user.get('username')) {
+      return;
+    }
+    if (await checkIfInviteAlreadyExists(user, currentUser)) {
+      return;
+    }
+    final userInvites = ParseObject('UserInvites')
+      ..set('user', user)
+      ..set('inviteFrom', currentUser);
+    await userInvites.save();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +96,21 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
                       color: Color(0xFFFF9505),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    ParseObject? user = await findUser(controllerUsername.text);
+                    if (user == null) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          duration: Duration(milliseconds: 1500),
+                          content: Text("No user found")));
+                    } else {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          duration: Duration(milliseconds: 1500),
+                          content: Text("The user has been invited")));
+                      await inviteUser(user);
+                    }
+                  },
                 ),
               ),
             ],

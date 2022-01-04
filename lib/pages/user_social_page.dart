@@ -1,9 +1,8 @@
 import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/pages/user_add_friend_page.dart';
-import 'package:die_app/pages/user_page.dart';
+import 'package:die_app/pages/user_invitations_page.dart';
 import 'package:die_app/widgets/user_friends_list.dart';
 import 'package:flutter/material.dart';
-// import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserSocialPage extends StatelessWidget {
   const UserSocialPage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class UserSocialPage extends StatelessWidget {
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 100.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,
@@ -87,7 +86,7 @@ class UserSocialPage extends StatelessWidget {
                                   context,
                                   RouteToDown(
                                       exitPage: this,
-                                      enterPage: const UserPage()));
+                                      enterPage: const UserInvitationsPage()));
                             },
                             child: const Icon(Icons.groups, size: 50),
                             style: ButtonStyle(

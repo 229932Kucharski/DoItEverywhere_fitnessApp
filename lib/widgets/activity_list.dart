@@ -36,6 +36,7 @@ class _ActivityListState extends State<ActivityList> {
     final ParseResponse apiResponse = await queryUserPoints.query();
     List<ParseObject> objects = apiResponse.results as List<ParseObject>;
     if (apiResponse.success) {
+      // ignore: unnecessary_null_comparison
       if (objects == null) {
         return [];
       } else {
@@ -50,7 +51,6 @@ class _ActivityListState extends State<ActivityList> {
     if (isRestartNeeded == false) {
       return activities;
     }
-    print("czytam aktywnosci");
     isRestartNeeded = false;
     List? favActivitiesNames = await readFavActivities();
     List<Activity> tempActivities = [];

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class LogoutButton extends StatefulWidget {
-  LogoutButton({Key? key}) : super(key: key);
+  const LogoutButton({Key? key}) : super(key: key);
 
   @override
   _LogoutButtonState createState() => _LogoutButtonState();
@@ -22,7 +22,7 @@ class _LogoutButtonState extends State<LogoutButton> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Login(),
+          builder: (BuildContext context) => const Login(),
         ),
         (route) => false,
       );

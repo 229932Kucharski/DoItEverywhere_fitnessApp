@@ -16,7 +16,6 @@ class UserFavActList extends StatefulWidget {
 class _UserFavActListState extends State<UserFavActList> {
   Future<List<Activity>> readActivities() async {
     if (readedActivities!.isNotEmpty || selectedFav.contains(true)) {
-      print("Not reading fav activities becasue they've been already read");
       return activities;
     }
     ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
@@ -27,11 +26,8 @@ class _UserFavActListState extends State<UserFavActList> {
     List<ParseObject> objects = apiResponse.results as List<ParseObject>;
     readedActivities = objects[0].get<List>('activities');
     selectedFav = List.generate(activities.length, (i) => false);
-    print("Czyszcze liste selectedFav");
-    print("zczytane aktywnosci ulubione: " + readedActivities.toString());
     for (int i = 0; i < activities.length; i++) {
       if (readedActivities!.contains(activities[i].name)) {
-        print("zczytane zawieraja + " + activities[i].name.toString());
         selectedFav[i] = true;
       }
     }
@@ -129,7 +125,14 @@ class _UserFavActListState extends State<UserFavActList> {
             ),
           );
         } else {
-          return const Text("");
+          return Column(
+            children: const [
+              SizedBox(
+                height: 50,
+              ),
+              CircularProgressIndicator()
+            ],
+          );
         }
       },
     );
