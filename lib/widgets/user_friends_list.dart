@@ -84,6 +84,37 @@ class _UserFriendsListState extends State<UserFriendsList> {
       future: getUserFriends(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data!.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  left: 60, right: 60, top: 120, bottom: 10),
+              child: Column(
+                children: [
+                  const Text(
+                    'Invite some friends to see their results',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'SourceCodePro',
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.refresh_rounded,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(
+                    height: 108,
+                  )
+                ],
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.only(top: 25.0),
             child: SizedBox(
@@ -103,35 +134,7 @@ class _UserFriendsListState extends State<UserFriendsList> {
             ),
           );
         } else if (snapshot.connectionState == ConnectionState.none) {
-          return Padding(
-            padding: const EdgeInsets.only(
-                left: 60, right: 60, top: 120, bottom: 10),
-            child: Column(
-              children: [
-                const Text(
-                  'Invite some friends to see their results',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SourceCodePro',
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.refresh_rounded,
-                    size: 35,
-                  ),
-                  onPressed: () {
-                    setState(() {});
-                  },
-                ),
-                const SizedBox(
-                  height: 115,
-                )
-              ],
-            ),
-          );
+          const Text("Check your internet conncetion");
         }
         return Column(children: const [
           SizedBox(

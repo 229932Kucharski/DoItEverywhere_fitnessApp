@@ -43,12 +43,31 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
     }
   }
 
+  Future<bool> checkIfUserIsAFriendAlready(
+      ParseObject user, ParseUser currentUser) async {
+    QueryBuilder<ParseObject> queryInvites =
+        QueryBuilder<ParseObject>(ParseObject('UserFriends'))
+          ..whereEqualTo('user', currentUser)
+          ..whereEqualTo('friend', user);
+    final ParseResponse apiResponse = await queryInvites.query();
+    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+    // ignore: unnecessary_null_comparison
+    if (objects == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   Future<void> inviteUser(ParseObject user) async {
     ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
     if (currentUser!.get('username') == user.get('username')) {
       return;
     }
     if (await checkIfInviteAlreadyExists(user, currentUser)) {
+      return;
+    }
+    if (await checkIfUserIsAFriendAlready(user, currentUser)) {
       return;
     }
     final userInvites = ParseObject('UserInvites')

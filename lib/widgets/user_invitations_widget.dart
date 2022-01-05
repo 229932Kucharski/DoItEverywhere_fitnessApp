@@ -55,8 +55,27 @@ class _UserInvitationWidgetState extends State<UserInvitationWidget> {
     await invitation.delete();
   }
 
+  Future<bool> checkIfFriendsAlready(
+      ParseObject user, ParseUser currentUser) async {
+    QueryBuilder<ParseObject> queryFriends =
+        QueryBuilder<ParseObject>(ParseObject('UserFriends'))
+          ..whereEqualTo('user', currentUser)
+          ..whereEqualTo('friend', user);
+    final ParseResponse apiResponse = await queryFriends.query();
+    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+    // ignore: unnecessary_null_comparison
+    if (objects == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   Future<void> addFriend(ParseObject from) async {
     ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    if (await checkIfFriendsAlready(from, currentUser!)) {
+      return;
+    }
     final addFriend = ParseObject('UserFriends')
       ..set('user', currentUser)
       ..set('friend', from);
