@@ -17,6 +17,8 @@ class _LogoutButtonState extends State<LogoutButton> {
         await (await ParseUser.currentUser() as ParseUser?)!.logout();
     if (response.success) {
       readedActivities = [];
+      chosenActivityName = "";
+      chosenActivity = null;
       selectedFav = List.generate(activities.length, (i) => false);
       isRestartNeeded = true;
       Navigator.pushAndRemoveUntil(

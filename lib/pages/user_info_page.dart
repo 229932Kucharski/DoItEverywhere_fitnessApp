@@ -1,5 +1,6 @@
 // import 'package:die_app/addidtional/route_to_up.dart';
 // import 'package:die_app/pages/user_page.dart';
+import 'package:die_app/widgets/user_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
 
@@ -67,57 +68,7 @@ class UserInfoPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // part with buttons //
-              SizedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Register date:\n${globals.registerDate?.day.toString()}.${globals.registerDate?.month.toString()}.${globals.registerDate?.year.toString()}\n",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'SourceCodePro',
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Activity distance:\n//do zmiany// ${globals.registerDate?.day.toString()}.${globals.registerDate?.month.toString()}.${globals.registerDate?.year.toString()}\n",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'SourceCodePro',
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Activity time:\n//do zmiany// ${globals.registerDate?.day.toString()}.${globals.registerDate?.month.toString()}.${globals.registerDate?.year.toString()}\n",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'SourceCodePro',
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Number of activities:\n//do zmiany// ${globals.registerDate?.day.toString()}.${globals.registerDate?.month.toString()}.${globals.registerDate?.year.toString()}\n",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'SourceCodePro',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              const UserInfoWidget(),
             ],
           ),
         ),
