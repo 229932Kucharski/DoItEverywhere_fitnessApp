@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math' show cos, sqrt, asin;
 
-import 'package:die_app/pages/chosen_activity_page.dart';
+import 'package:die_app/pages/activity/chosen_activity_page.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/widgets/activity_list.dart';
+import 'package:die_app/widgets/activity_page/activity_list.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 

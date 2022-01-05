@@ -1,6 +1,6 @@
 import 'package:die_app/back4app/login.dart';
-import 'package:die_app/widgets/activity_list.dart';
-import 'package:die_app/widgets/user_fav_act_list.dart';
+import 'package:die_app/widgets/activity_page/activity_list.dart';
+import 'package:die_app/widgets/user_page/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 

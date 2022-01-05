@@ -1,5 +1,5 @@
 import 'package:die_app/models/activity.dart';
-import 'package:die_app/widgets/activity_list.dart';
+import 'package:die_app/widgets/activity_page/activity_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -49,7 +49,7 @@ class _UserFavActListState extends State<UserFavActList> {
             padding:
                 const EdgeInsets.only(left: 25, right: 25, top: 25, bottom: 10),
             child: SizedBox(
-              height: 420,
+              height: 400,
               child: Container(
                 decoration: const BoxDecoration(
                   color: Color(0xff333333),

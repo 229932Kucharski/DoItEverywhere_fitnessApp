@@ -1,6 +1,6 @@
 // import 'package:die_app/addidtional/route_to_up.dart';
 // import 'package:die_app/pages/user_page.dart';
-import 'package:die_app/widgets/user_info_widget.dart';
+import 'package:die_app/widgets/user_page/user_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
 
@@ -10,20 +10,20 @@ class UserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/background/bg_02_1.png"),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background/bg_02_1.png"),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 100.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,

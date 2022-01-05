@@ -1,5 +1,5 @@
-import 'package:die_app/widgets/activity_list.dart';
-import 'package:die_app/widgets/user_fav_act_list.dart';
+import 'package:die_app/widgets/activity_page/activity_list.dart';
+import 'package:die_app/widgets/user_page/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:collection/collection.dart';
@@ -40,20 +40,20 @@ class UserFavourites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/background/bg_03_1.png"),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background/bg_03_1.png"),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.only(top: 30),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,

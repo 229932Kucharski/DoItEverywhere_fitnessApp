@@ -108,17 +108,13 @@ class _UserFriendsListState extends State<UserFriendsList> {
                       setState(() {});
                     },
                   ),
-                  const SizedBox(
-                    height: 108,
-                  )
                 ],
               ),
             );
           }
           return Padding(
-            padding: const EdgeInsets.only(top: 25.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: SizedBox(
-              height: 300,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -141,9 +137,6 @@ class _UserFriendsListState extends State<UserFriendsList> {
             height: 130,
           ),
           CircularProgressIndicator(),
-          SizedBox(
-            height: 159,
-          )
         ]);
       },
     );

@@ -1,6 +1,6 @@
 import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/pages/chosen_activity_page.dart';
-import 'package:die_app/widgets/activity_list.dart';
+import 'package:die_app/pages/activity/chosen_activity_page.dart';
+import 'package:die_app/widgets/activity_page/activity_list.dart';
 import 'package:flutter/material.dart';
 
 class ActivityPage extends StatelessWidget {
@@ -56,7 +56,7 @@ class ActivityPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 150),
               ],
             )));
   }

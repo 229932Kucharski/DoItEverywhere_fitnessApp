@@ -1,8 +1,8 @@
-import 'package:die_app/pages/activity_page.dart';
-import 'package:die_app/pages/user_page.dart';
+import 'package:die_app/pages/activity/activity_page.dart';
+import 'package:die_app/pages/user/user_page.dart';
 import 'package:flutter/material.dart';
 
-import 'points_page.dart';
+import 'points/points_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        extendBody: true,
         body: PageView(
           controller: _pageController,
           children: const [

@@ -1,4 +1,4 @@
-import 'package:die_app/widgets/user_activities_list.dart';
+import 'package:die_app/widgets/user_page/user_activities_list.dart';
 import 'package:flutter/material.dart';
 
 class UserHistoryPage extends StatelessWidget {
@@ -7,20 +7,20 @@ class UserHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/background/bg_03_1.png"),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background/bg_03_1.png"),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // part with avatar //
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.only(top: 25),
                 child: SizedBox(
                   child: Align(
                     alignment: Alignment.center,

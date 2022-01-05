@@ -1,8 +1,8 @@
-import 'package:die_app/widgets/user_add_friend_widget.dart';
+import 'package:die_app/widgets/user_page/user_invitations_widget.dart';
 import 'package:flutter/material.dart';
 
-class UserAddFriendPage extends StatelessWidget {
-  const UserAddFriendPage({Key? key}) : super(key: key);
+class UserInvitationsPage extends StatelessWidget {
+  const UserInvitationsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,20 +10,20 @@ class UserAddFriendPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SizedBox.expand(
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/background/bg_01_2.png"),
-                fit: BoxFit.cover,
-              ),
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/background/bg_01_2.png"),
+              fit: BoxFit.cover,
             ),
+          ),
+          child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // part with avatar //
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
+                  padding: const EdgeInsets.only(top: 30.0),
                   child: SizedBox(
                     child: Align(
                       alignment: Alignment.center,
@@ -32,7 +32,7 @@ class UserAddFriendPage extends StatelessWidget {
                           const Padding(
                             padding: EdgeInsets.only(bottom: 20.0),
                             child: Text(
-                              "Add Friend",
+                              "Manage your invitations",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'SourceCodePro',
@@ -44,7 +44,7 @@ class UserAddFriendPage extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Icon(Icons.group, size: 60),
+                              child: const Icon(Icons.groups, size: 60),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(
                                     const CircleBorder()),
@@ -64,7 +64,7 @@ class UserAddFriendPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const UserAddFriendWidget(),
+                          const UserInvitationWidget(),
                         ],
                       ),
                     ),

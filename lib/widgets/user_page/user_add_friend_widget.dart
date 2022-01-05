@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserAddFriendWidget extends StatefulWidget {
   const UserAddFriendWidget({Key? key}) : super(key: key);
@@ -116,18 +117,23 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
                     ),
                   ),
                   onPressed: () async {
-                    ParseObject? user = await findUser(controllerUsername.text);
-                    if (user == null) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          duration: Duration(milliseconds: 1500),
-                          content: Text("No user found")));
-                    } else {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          duration: Duration(milliseconds: 1500),
-                          content: Text("The user has been invited")));
-                      await inviteUser(user);
+                    if (!globals.isRedundentClick(DateTime.now())) {
+                      ParseObject? user =
+                          await findUser(controllerUsername.text);
+                      if (user == null) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(milliseconds: 1500),
+                                content: Text("No user found")));
+                      } else {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(milliseconds: 1500),
+                                content: Text("The user has been invited")));
+                        await inviteUser(user);
+                      }
                     }
                   },
                 ),

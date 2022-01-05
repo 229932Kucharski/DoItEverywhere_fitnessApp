@@ -47,7 +47,7 @@ class _UserInfoState extends State<UserInfoWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           return SizedBox(
             child: Padding(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
               child: Column(
                 children: [
                   Column(
