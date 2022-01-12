@@ -1,13 +1,62 @@
+import 'dart:async';
+
 import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/addidtional/route_to_up.dart';
 import 'package:die_app/pages/user/user_page.dart';
 import 'package:die_app/pages/user/user_settings_page.dart';
 import 'package:die_app/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 // import 'package:die_app/addidtional/globals.dart' as globals;
 
-class UserDataPage extends StatelessWidget {
+class UserDataPage extends StatefulWidget {
   const UserDataPage({Key? key}) : super(key: key);
+
+  @override
+  _UserDataPageState createState() => _UserDataPageState();
+}
+
+class _UserDataPageState extends State<UserDataPage> {
+  final controllerHeight = TextEditingController();
+  final controllerWeight = TextEditingController();
+  final controllerAge = TextEditingController();
+
+  ParseUser? currentUser;
+  int? height;
+  int? weight;
+  int? age;
+
+  Future<ParseUser?> getUser() async {
+    currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      Duration.zero,
+      () async {
+        await getUser();
+        await getUserInfo();
+      },
+    );
+  }
+
+  Future<void> getUserInfo() async {
+    QueryBuilder<ParseObject> queryUserData =
+        QueryBuilder<ParseObject>(ParseObject('UserData'))
+          ..whereEqualTo('user', currentUser);
+    final ParseResponse apiResponse = await queryUserData.query();
+    if (apiResponse.success && apiResponse.results != null) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      for (ParseObject object in objects) {
+        height = object.get('height');
+        weight = object.get('weight');
+        age = object.get('age');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +136,11 @@ class UserDataPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "180 cm\n",
-                          style: TextStyle(
+                          "$height cm\n",
+                          style: const TextStyle(
                             fontSize: 20,
                             fontFamily: 'SourceCodePro',
                           ),
@@ -107,11 +156,11 @@ class UserDataPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "80 kg\n",
-                          style: TextStyle(
+                          "$weight kg\n",
+                          style: const TextStyle(
                             fontSize: 20,
                             fontFamily: 'SourceCodePro',
                           ),
@@ -127,11 +176,11 @@ class UserDataPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "24\n",
-                          style: TextStyle(
+                          "$age\n",
+                          style: const TextStyle(
                             fontSize: 20,
                             fontFamily: 'SourceCodePro',
                           ),
@@ -152,7 +201,7 @@ class UserDataPage extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           RouteToDown(
-                                              exitPage: this,
+                                              exitPage: const UserDataPage(),
                                               enterPage:
                                                   const UserStatsPage()));
                                     },
@@ -190,7 +239,7 @@ class UserDataPage extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           RouteToDown(
-                                              exitPage: this,
+                                              exitPage: const UserDataPage(),
                                               enterPage:
                                                   const UserSettingsPage()));
                                     },
