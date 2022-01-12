@@ -1,5 +1,8 @@
+import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/addidtional/route_to_up.dart';
 import 'package:die_app/pages/user/user_page.dart';
+import 'package:die_app/pages/user/user_settings_page.dart';
+import 'package:die_app/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:die_app/addidtional/globals.dart' as globals;
 
@@ -146,11 +149,12 @@ class UserDataPage extends StatelessWidget {
                                 child: SizedBox(
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     RouteToUp(
-                                      //         exitPage: this,
-                                      //         enterPage: const UserPage()));
+                                      Navigator.push(
+                                          context,
+                                          RouteToDown(
+                                              exitPage: this,
+                                              enterPage:
+                                                  const UserStatsPage()));
                                     },
                                     child: const Icon(
                                         Icons.insert_chart_outlined_sharp,
@@ -183,11 +187,12 @@ class UserDataPage extends StatelessWidget {
                                 child: SizedBox(
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     RouteToUp(
-                                      //         exitPage: this,
-                                      //         enterPage: const UserPage()));
+                                      Navigator.push(
+                                          context,
+                                          RouteToDown(
+                                              exitPage: this,
+                                              enterPage:
+                                                  const UserSettingsPage()));
                                     },
                                     child: const Icon(Icons.settings, size: 50),
                                     style: ButtonStyle(
