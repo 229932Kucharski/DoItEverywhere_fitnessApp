@@ -31,7 +31,9 @@ class _UserFriendsListState extends State<UserFriendsList> {
         ParseObject? objectId = friend.get<ParseObject>('friend');
         String? name = getUserName(allUsers!, objectId!.objectId!);
         int? points = getUserPoints(allUsersData!, objectId.objectId!);
-        User user = User(objectId: objectId, name: name, points: points);
+        ParseFileBase? avatar = getUserAvatar(allUsersData, objectId.objectId!);
+        User user = User(
+            objectId: objectId, name: name, points: points, avatar: avatar);
         friends.add(user);
       }
     }
@@ -76,6 +78,14 @@ class _UserFriendsListState extends State<UserFriendsList> {
       }
     }
     return 0;
+  }
+
+  ParseFileBase? getUserAvatar(List<ParseObject> users, String objectId) {
+    for (ParseObject user in users) {
+      if (user.get("user").get("objectId") == objectId) {
+        return user.get<ParseFileBase>('avatar');
+      }
+    }
   }
 
   @override
@@ -149,6 +159,10 @@ class _UserFriendsListState extends State<UserFriendsList> {
         sortColumnIndex: 0,
         showCheckboxColumn: false,
         columns: const [
+          DataColumn(
+            label: Text(""),
+            numeric: false,
+          ),
           DataColumn(label: Text("Name"), numeric: false),
           DataColumn(
             label: Text("Points"),
@@ -158,6 +172,23 @@ class _UserFriendsListState extends State<UserFriendsList> {
         rows: friends
             .map(
               (friend) => DataRow(cells: [
+                DataCell(
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: (friend.avatar != null)
+                        ? Image.network(
+                            friend.avatar!.url!,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.contain,
+                          ).image
+                        : Image.asset(
+                            'assets/users/avatar.png',
+                            width: 40,
+                            height: 40,
+                          ).image,
+                  ),
+                ),
                 DataCell(Text(friend.name!), onLongPress: () async {
                   if (await confirm(
                     context,
