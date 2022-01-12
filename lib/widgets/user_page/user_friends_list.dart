@@ -19,7 +19,7 @@ class _UserFriendsListState extends State<UserFriendsList> {
 
     final ParseResponse apiResponse = await queryUserFriends.query();
     List<User> friends = [];
-    if (apiResponse.success) {
+    if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> users = apiResponse.results as List<ParseObject>;
       // ignore: unnecessary_null_comparison
       if (users == null) {
