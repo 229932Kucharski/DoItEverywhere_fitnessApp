@@ -18,7 +18,7 @@ class _UserInvitationWidgetState extends State<UserInvitationWidget> {
 
     final ParseResponse apiResponse = await queryUserPoints.query();
     List<UserInvitation> userInvitations = [];
-    if (apiResponse.success) {
+    if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> invitations = apiResponse.results as List<ParseObject>;
       for (ParseObject invitation in invitations) {
         String? objectId = invitation.get<String>('objectId');
@@ -43,7 +43,7 @@ class _UserInvitationWidgetState extends State<UserInvitationWidget> {
           ..whereEqualTo('objectId', objectId);
 
     final ParseResponse apiResponse = await queryUserFriends.query();
-    if (apiResponse.success) {
+    if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> users = apiResponse.results as List<ParseObject>;
       return users[0].get("username");
     }
@@ -62,13 +62,16 @@ class _UserInvitationWidgetState extends State<UserInvitationWidget> {
           ..whereEqualTo('user', currentUser)
           ..whereEqualTo('friend', user);
     final ParseResponse apiResponse = await queryFriends.query();
-    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-    // ignore: unnecessary_null_comparison
-    if (objects == null) {
-      return false;
-    } else {
-      return true;
+    if (apiResponse.success && apiResponse.results != null) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      // ignore: unnecessary_null_comparison
+      if (objects == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
+    return false;
   }
 
   Future<void> addFriend(ParseObject from) async {

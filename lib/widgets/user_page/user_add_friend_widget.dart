@@ -17,7 +17,7 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
         QueryBuilder<ParseObject>(ParseUser.forQuery())
           ..whereEqualTo('username', username);
     final ParseResponse apiResponse = await queryUsers.query();
-    if (apiResponse.success) {
+    if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> objects = apiResponse.results as List<ParseObject>;
       // ignore: unnecessary_null_comparison
       if (objects == null) {
@@ -35,13 +35,16 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
           ..whereEqualTo('user', user)
           ..whereEqualTo('inviteFrom', currentUser);
     final ParseResponse apiResponse = await queryInvites.query();
-    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-    // ignore: unnecessary_null_comparison
-    if (objects == null) {
-      return false;
-    } else {
-      return true;
+    if (apiResponse.success && apiResponse.results != null) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      // ignore: unnecessary_null_comparison
+      if (objects == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
+    return false;
   }
 
   Future<bool> checkIfUserIsAFriendAlready(
@@ -51,13 +54,16 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
           ..whereEqualTo('user', currentUser)
           ..whereEqualTo('friend', user);
     final ParseResponse apiResponse = await queryInvites.query();
-    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-    // ignore: unnecessary_null_comparison
-    if (objects == null) {
-      return false;
-    } else {
-      return true;
+    if (apiResponse.success && apiResponse.results != null) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      // ignore: unnecessary_null_comparison
+      if (objects == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
+    return false;
   }
 
   Future<void> inviteUser(ParseObject user) async {
