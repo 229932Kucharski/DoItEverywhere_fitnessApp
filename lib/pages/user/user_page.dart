@@ -1,3 +1,4 @@
+import 'package:die_app/widgets/user_page/user_avatar_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:die_app/addidtional/globals.dart' as globals;
@@ -32,37 +33,7 @@ class UserPage extends StatelessWidget {
               ),
             ),
             // part with avatar //
-            Padding(
-              padding: const EdgeInsets.only(bottom: 70.0),
-              child: SizedBox(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      const CircleAvatar(
-                        radius: 90,
-                        backgroundColor: Color(0xFFFF9505),
-                        child: CircleAvatar(
-                          radius: 85,
-                          backgroundImage:
-                              AssetImage('assets/users/avatar.png'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          "Hello ${globals.username}!",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'SourceCodePro',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            const UserAvatarWidget(),
 
             // part with buttons //
             SizedBox(
