@@ -1,5 +1,6 @@
 import 'package:die_app/widgets/user_page/user_add_friend_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserAddFriendPage extends StatelessWidget {
   const UserAddFriendPage({Key? key}) : super(key: key);
@@ -42,7 +43,9 @@ class UserAddFriendPage extends StatelessWidget {
                           SizedBox(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                if (!globals.isRedundentClick(DateTime.now())) {
+                                  Navigator.pop(context);
+                                }
                               },
                               child: const Icon(Icons.group, size: 60),
                               style: ButtonStyle(

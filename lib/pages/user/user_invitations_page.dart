@@ -1,5 +1,6 @@
 import 'package:die_app/widgets/user_page/user_invitations_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserInvitationsPage extends StatelessWidget {
   const UserInvitationsPage({Key? key}) : super(key: key);
@@ -42,7 +43,9 @@ class UserInvitationsPage extends StatelessWidget {
                           SizedBox(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                if (!globals.isRedundentClick(DateTime.now())) {
+                                  Navigator.pop(context);
+                                }
                               },
                               child: const Icon(Icons.groups, size: 60),
                               style: ButtonStyle(

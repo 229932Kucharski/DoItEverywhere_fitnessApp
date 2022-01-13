@@ -82,16 +82,22 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 50,
                   child: TextButton(
-                    child: const Text(
-                      'SIGN IN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'SourceCodePro',
-                        color: Color(0xFFFF9505),
+                      child: const Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'SourceCodePro',
+                          color: Color(0xFFFF9505),
+                        ),
                       ),
-                    ),
-                    onPressed: isLoggedIn ? null : () => doUserLogin(),
-                  ),
+                      onPressed: isLoggedIn
+                          ? null
+                          : () => {
+                                if (!globals.isRedundentClick(DateTime.now()))
+                                  {
+                                    doUserLogin(),
+                                  }
+                              }),
                 ),
                 const SizedBox(
                   height: 16,
@@ -108,11 +114,13 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          RouteToDown(
-                              exitPage: const Login(),
-                              enterPage: const SignUp()));
+                      if (!globals.isRedundentClick(DateTime.now())) {
+                        Navigator.push(
+                            context,
+                            RouteToDown(
+                                exitPage: const Login(),
+                                enterPage: const SignUp()));
+                      }
                     },
                   ),
                 ),

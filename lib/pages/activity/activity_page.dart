@@ -2,6 +2,7 @@ import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/pages/activity/chosen_activity_page.dart';
 import 'package:die_app/widgets/activity_page/activity_list.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({Key? key}) : super(key: key);
@@ -31,13 +32,14 @@ class ActivityPage extends StatelessWidget {
                 const SizedBox(height: 120),
                 ElevatedButton(
                   onPressed: () {
-                    if (chosenActivity == null) {
-                    } else {
-                      Navigator.push(
-                          context,
-                          RouteToDown(
-                              exitPage: this,
-                              enterPage: const ChosenActivity()));
+                    if (!globals.isRedundentClick(DateTime.now())) {
+                      if (chosenActivity != null) {
+                        Navigator.push(
+                            context,
+                            RouteToDown(
+                                exitPage: this,
+                                enterPage: const ChosenActivity()));
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(

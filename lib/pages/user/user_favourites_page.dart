@@ -3,6 +3,7 @@ import 'package:die_app/widgets/user_page/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:collection/collection.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserFavourites extends StatelessWidget {
   const UserFavourites({Key? key}) : super(key: key);
@@ -73,8 +74,10 @@ class UserFavourites extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () async {
-                              await saveFavActivities();
-                              Navigator.pop(context);
+                              if (!globals.isRedundentClick(DateTime.now())) {
+                                await saveFavActivities();
+                                Navigator.pop(context);
+                              }
                             },
                             child: const Icon(Icons.favorite, size: 60),
                             style: ButtonStyle(

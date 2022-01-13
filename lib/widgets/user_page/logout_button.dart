@@ -3,6 +3,7 @@ import 'package:die_app/widgets/activity_page/activity_list.dart';
 import 'package:die_app/widgets/user_page/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class LogoutButton extends StatefulWidget {
   const LogoutButton({Key? key}) : super(key: key);
@@ -32,6 +33,10 @@ class _LogoutButtonState extends State<LogoutButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: doUserLogout, child: const Text("Logout"));
+    return ElevatedButton(
+        onPressed: () => {
+              if (!globals.isRedundentClick(DateTime.now())) {doUserLogout()}
+            },
+        child: const Text("Logout"));
   }
 }

@@ -150,10 +150,7 @@ class _PointsChartState extends State<PointsChart> {
                   cornerStyle: CornerStyle.bothCurve,
                   dataSource: [
                     (snapshot.data != null)
-                        ? PointsData(
-                            'Points',
-                            ((snapshot.data! / globals.maxPoints) * 100)
-                                .toInt())
+                        ? PointsData('Points', snapshot.data!)
                         : PointsData('Points', 0)
                   ],
                   xValueMapper: (PointsData data, _) => data.range,

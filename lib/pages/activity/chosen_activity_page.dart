@@ -6,6 +6,7 @@ import 'package:die_app/widgets/points_page/points_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class ChosenActivityController {
   late void Function() listenLocation;
@@ -149,16 +150,18 @@ class _ChosenActivityState extends State<ChosenActivity> {
                           children: [
                             IconButton(
                               onPressed: () async {
-                                int minutes = seconds ~/ 60;
-                                points = minutes * chosenActivity!.points!;
-                                stopWatchTimer.onExecute
-                                    .add(StopWatchExecute.reset);
-                                await saveData();
-                                await updateUser();
-                                totalDistance = 0.0;
-                                currentSpeed = 0.0;
-                                isPointsRestartNeeded = true;
-                                Navigator.pop(context);
+                                if (!globals.isRedundentClick(DateTime.now())) {
+                                  Navigator.pop(context);
+                                  int minutes = seconds ~/ 60;
+                                  points = minutes * chosenActivity!.points!;
+                                  stopWatchTimer.onExecute
+                                      .add(StopWatchExecute.reset);
+                                  await saveData();
+                                  await updateUser();
+                                  totalDistance = 0.0;
+                                  currentSpeed = 0.0;
+                                  isPointsRestartNeeded = true;
+                                }
                               },
                               iconSize: 60,
                               icon: ImageIcon(

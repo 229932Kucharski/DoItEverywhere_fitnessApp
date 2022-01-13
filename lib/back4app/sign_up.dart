@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -89,16 +90,20 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 50,
                   child: TextButton(
-                    child: const Text(
-                      'SIGN UP',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'SourceCodePro',
-                        color: Color(0xFFFF9505),
+                      child: const Text(
+                        'SIGN UP',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'SourceCodePro',
+                          color: Color(0xFFFF9505),
+                        ),
                       ),
-                    ),
-                    onPressed: () => doUserRegistration(),
-                  ),
+                      onPressed: () => {
+                            if (!globals.isRedundentClick(DateTime.now()))
+                              {
+                                doUserRegistration(),
+                              }
+                          }),
                 )
               ],
             ),

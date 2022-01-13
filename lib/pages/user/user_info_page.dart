@@ -42,7 +42,9 @@ class UserInfoPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              if (!globals.isRedundentClick(DateTime.now())) {
+                                Navigator.pop(context);
+                              }
                             },
                             child: const Icon(Icons.contacts_rounded, size: 60),
                             style: ButtonStyle(

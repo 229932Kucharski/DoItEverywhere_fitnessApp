@@ -5,7 +5,7 @@ import 'package:die_app/pages/user/user_settings_page.dart';
 import 'package:die_app/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-// import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserDataPage extends StatefulWidget {
   const UserDataPage({Key? key}) : super(key: key);
@@ -88,7 +88,10 @@ class _UserDataPageState extends State<UserDataPage> {
                             SizedBox(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  if (!globals
+                                      .isRedundentClick(DateTime.now())) {
+                                    Navigator.pop(context);
+                                  }
                                 },
                                 child: const Icon(Icons.menu, size: 60),
                                 style: ButtonStyle(
@@ -195,13 +198,16 @@ class _UserDataPageState extends State<UserDataPage> {
                                     child: SizedBox(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              RouteToDown(
-                                                  exitPage:
-                                                      const UserDataPage(),
-                                                  enterPage:
-                                                      const UserStatsPage()));
+                                          if (!globals.isRedundentClick(
+                                              DateTime.now())) {
+                                            Navigator.push(
+                                                context,
+                                                RouteToDown(
+                                                    exitPage:
+                                                        const UserDataPage(),
+                                                    enterPage:
+                                                        const UserStatsPage()));
+                                          }
                                         },
                                         child: const Icon(
                                             Icons.insert_chart_outlined_sharp,
@@ -234,13 +240,16 @@ class _UserDataPageState extends State<UserDataPage> {
                                     child: SizedBox(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              RouteToDown(
-                                                  exitPage:
-                                                      const UserDataPage(),
-                                                  enterPage:
-                                                      const UserSettingsPage()));
+                                          if (!globals.isRedundentClick(
+                                              DateTime.now())) {
+                                            Navigator.push(
+                                                context,
+                                                RouteToDown(
+                                                    exitPage:
+                                                        const UserDataPage(),
+                                                    enterPage:
+                                                        const UserSettingsPage()));
+                                          }
                                         },
                                         child: const Icon(Icons.settings,
                                             size: 50),

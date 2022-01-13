@@ -1,5 +1,6 @@
 import 'package:die_app/widgets/user_page/user_activities_list.dart';
 import 'package:flutter/material.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserHistoryPage extends StatelessWidget {
   const UserHistoryPage({Key? key}) : super(key: key);
@@ -39,7 +40,9 @@ class UserHistoryPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              if (!globals.isRedundentClick(DateTime.now())) {
+                                Navigator.pop(context);
+                              }
                             },
                             child: const Icon(Icons.history, size: 60),
                             style: ButtonStyle(

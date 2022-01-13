@@ -4,6 +4,7 @@ import 'package:die_app/addidtional/route_to_down.dart';
 import 'package:die_app/pages/user/user_add_friend_page.dart';
 import 'package:die_app/pages/user/user_invitations_page.dart';
 import 'package:die_app/widgets/user_page/user_friends_list.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserSocialPage extends StatelessWidget {
   const UserSocialPage({
@@ -45,7 +46,9 @@ class UserSocialPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              if (!globals.isRedundentClick(DateTime.now())) {
+                                Navigator.pop(context);
+                              }
                             },
                             child: const Icon(Icons.people, size: 60),
                             style: ButtonStyle(
@@ -89,12 +92,14 @@ class UserSocialPage extends StatelessWidget {
                           child: SizedBox(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    RouteToDown(
-                                        exitPage: this,
-                                        enterPage:
-                                            const UserInvitationsPage()));
+                                if (!globals.isRedundentClick(DateTime.now())) {
+                                  Navigator.push(
+                                      context,
+                                      RouteToDown(
+                                          exitPage: this,
+                                          enterPage:
+                                              const UserInvitationsPage()));
+                                }
                               },
                               child: const Icon(Icons.groups, size: 50),
                               style: ButtonStyle(
@@ -122,11 +127,14 @@ class UserSocialPage extends StatelessWidget {
                           child: SizedBox(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    RouteToDown(
-                                        exitPage: this,
-                                        enterPage: const UserAddFriendPage()));
+                                if (!globals.isRedundentClick(DateTime.now())) {
+                                  Navigator.push(
+                                      context,
+                                      RouteToDown(
+                                          exitPage: this,
+                                          enterPage:
+                                              const UserAddFriendPage()));
+                                }
                               },
                               child:
                                   const Icon(Icons.group_add_rounded, size: 50),

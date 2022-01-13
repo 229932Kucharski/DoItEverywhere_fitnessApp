@@ -1,6 +1,6 @@
 import 'package:die_app/widgets/user_page/user_data_settings_widget.dart';
 import 'package:flutter/material.dart';
-// import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserSettingsPage extends StatelessWidget {
   const UserSettingsPage({Key? key}) : super(key: key);
@@ -40,7 +40,9 @@ class UserSettingsPage extends StatelessWidget {
                         SizedBox(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              if (!globals.isRedundentClick(DateTime.now())) {
+                                Navigator.pop(context);
+                              }
                             },
                             child: const Icon(Icons.settings, size: 60),
                             style: ButtonStyle(
