@@ -31,15 +31,32 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         extendBody: true,
-        body: PageView(
-          controller: _pageController,
-          children: const [
-            PointsPage(),
-            ActivityPage(),
-            UserPage(),
-          ],
-          onPageChanged: onPageChanged,
-          physics: const NeverScrollableScrollPhysics(),
+        body: GestureDetector(
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (details.primaryVelocity! > 0) {
+              if (_selectedIndex > 0) {
+                _selectedIndex -= 1;
+                onPageChanged(_selectedIndex);
+                _onItemTapped(_selectedIndex);
+              }
+            } else if (details.primaryVelocity! < 0) {
+              if (_selectedIndex < 2) {
+                _selectedIndex += 1;
+                onPageChanged(_selectedIndex++);
+                _onItemTapped(_selectedIndex);
+              }
+            }
+          },
+          child: PageView(
+            controller: _pageController,
+            children: const [
+              PointsPage(),
+              ActivityPage(),
+              UserPage(),
+            ],
+            onPageChanged: onPageChanged,
+            physics: const NeverScrollableScrollPhysics(),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: _onItemTapped,

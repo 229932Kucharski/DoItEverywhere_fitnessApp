@@ -13,7 +13,7 @@ class ActivityPage extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/background/bg_02.png"),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             child: Column(

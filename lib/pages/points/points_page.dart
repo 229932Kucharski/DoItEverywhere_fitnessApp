@@ -14,7 +14,7 @@ class PointsPage extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/background/bg_01.png"),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             child: Column(
