@@ -1,11 +1,14 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 int? points;
+bool isPointsRestartNeeded = true;
 
 class PointsChart extends StatefulWidget {
   const PointsChart({Key? key}) : super(key: key);
@@ -19,13 +22,16 @@ class _PointsChartState extends State<PointsChart> {
 
   ParseUser? currentUser;
 
-  Future<ParseObject?> getUser() async {
+  Future<int?> getUser() async {
+    if (!isPointsRestartNeeded && points != null) {
+      return points;
+    }
     currentUser = await ParseUser.currentUser() as ParseUser?;
     QueryBuilder<ParseObject> queryUserPoints =
         QueryBuilder<ParseObject>(ParseObject('UserData'))
           ..whereEqualTo('user', currentUser);
     final ParseResponse apiResponse = await queryUserPoints.query();
-    if (apiResponse.success) {
+    if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> objects = apiResponse.results as List<ParseObject>;
       DateTime updatedAt =
           DateTime.parse((objects[0].get('pointsUpdatedAt')).toString());
@@ -45,11 +51,12 @@ class _PointsChartState extends State<PointsChart> {
         }
       }
       points = objects[0].get('points');
-      return objects[0];
+      isPointsRestartNeeded = false;
+      return points;
     } else {
       showError(apiResponse.error!.message);
+      return 0;
     }
-    return null;
   }
 
   Future<void> updateUser(int points) async {
@@ -93,7 +100,7 @@ class _PointsChartState extends State<PointsChart> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ParseObject?>(
+    return FutureBuilder<int?>(
         future: getUser(),
         builder: (context, snapshot) {
           return SfCircularChart(
@@ -108,17 +115,46 @@ class _PointsChartState extends State<PointsChart> {
                   _resolveTransform(
                       chartShaderDetails.outerRect, TextDirection.ltr));
             },
+            annotations: <CircularChartAnnotation>[
+              CircularChartAnnotation(
+                  widget: Container(
+                      child: DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'SourceCodePro',
+                ),
+                child: AnimatedTextKit(
+                  totalRepeatCount: 1,
+                  animatedTexts: [
+                    (snapshot.data != null)
+                        ? TyperAnimatedText(
+                            ((snapshot.data! / globals.maxPoints) * 100)
+                                    .toInt()
+                                    .toString() +
+                                "%",
+                            textAlign: TextAlign.center)
+                        : TyperAnimatedText(""),
+                  ],
+                ),
+              )))
+            ],
             tooltipBehavior: _tooltipBehavior,
             series: <CircularSeries>[
               RadialBarSeries<PointsData, String>(
-                  maximumValue: 100000,
+                  maximumValue: 100,
                   radius: '100%',
                   innerRadius: '65%',
                   gap: '10',
                   trackOpacity: 0.2,
                   cornerStyle: CornerStyle.bothCurve,
                   dataSource: [
-                    PointsData('Month', snapshot.data?.get('points')),
+                    (snapshot.data != null)
+                        ? PointsData(
+                            'Points',
+                            ((snapshot.data! / globals.maxPoints) * 100)
+                                .toInt())
+                        : PointsData('Points', 0)
                   ],
                   xValueMapper: (PointsData data, _) => data.range,
                   yValueMapper: (PointsData data, _) => data.points,
@@ -170,5 +206,5 @@ class _PointsChartState extends State<PointsChart> {
 class PointsData {
   PointsData(this.range, this.points);
   final String range;
-  final int? points;
+  final int points;
 }

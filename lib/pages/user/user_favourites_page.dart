@@ -33,7 +33,7 @@ class UserFavourites extends StatelessWidget {
     if (parseResponse.success) {
       readedActivities = [];
       selectedFav = List.generate(activities.length, (i) => false);
-      isRestartNeeded = true;
+      isActivityListRestartNeeded = true;
     }
   }
 

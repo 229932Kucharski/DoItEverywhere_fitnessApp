@@ -2,6 +2,7 @@ import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:die_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:die_app/addidtional/globals.dart' as globals;
 
 class UserFriendsList extends StatefulWidget {
   const UserFriendsList({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _UserFriendsListState extends State<UserFriendsList> {
         friends.add(user);
       }
     }
+    friends.sort((a, b) => b.points!.compareTo(a.points!));
     return friends;
   }
 
@@ -201,7 +203,10 @@ class _UserFriendsListState extends State<UserFriendsList> {
                   }
                 }),
                 DataCell(
-                  Text(friend.points!.toString()),
+                  Text(((friend.points! / globals.maxPoints) * 100)
+                          .toInt()
+                          .toString() +
+                      "%"),
                 ),
               ]),
             )

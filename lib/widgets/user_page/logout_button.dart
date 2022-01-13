@@ -19,7 +19,7 @@ class _LogoutButtonState extends State<LogoutButton> {
       readedActivities = [];
       chosenActivityName = null;
       selectedFav = List.generate(activities.length, (i) => false);
-      isRestartNeeded = true;
+      isActivityListRestartNeeded = true;
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

@@ -18,20 +18,22 @@ class _PointsTextState extends State<PointsText> {
     }
     if (points == 100000) {
       return "Wow 100%";
+    } else if (points! > 95000) {
+      return "Almost 100%";
     } else if (points! > 90000) {
       return "You're doing well!";
     } else if (points! > 70000) {
       return "Dont't stop!";
     } else if (points! > 50000) {
-      return "You're halfway there";
+      return "Don't let the points drop";
     } else if (points! > 30000) {
-      return "Not so bad";
+      return "You can be better";
     } else if (points! > 10000) {
-      return "Do more activities";
+      return "Not so bad";
     } else if (points! > 0) {
-      return "First points";
+      return "Could be better";
     } else if (points == 0) {
-      return "Do some activities to gain points";
+      return "It's time to move and gain some points";
     }
     return "";
   }

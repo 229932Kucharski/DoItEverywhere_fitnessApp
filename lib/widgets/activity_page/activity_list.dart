@@ -5,7 +5,7 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 String? chosenActivityName;
 Activity? chosenActivity;
 List<Activity> activities = [];
-bool isRestartNeeded = true;
+bool isActivityListRestartNeeded = true;
 
 class ActivityList extends StatefulWidget {
   const ActivityList({Key? key}) : super(key: key);
@@ -48,10 +48,10 @@ class _ActivityListState extends State<ActivityList> {
   }
 
   Future<List<Activity>> readActivities() async {
-    if (isRestartNeeded == false) {
+    if (isActivityListRestartNeeded == false) {
       return activities;
     }
-    isRestartNeeded = false;
+    isActivityListRestartNeeded = false;
     List? favActivitiesNames = await readFavActivities();
     List<Activity> tempActivities = [];
     List<Activity> favActivities = [];
