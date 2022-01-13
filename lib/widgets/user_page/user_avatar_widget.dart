@@ -100,7 +100,7 @@ class _UserAvatarWidgetState extends State<UserAvatarWidget> {
                             child: CircleAvatar(
                               radius: 85,
                               backgroundImage: Image.network(
-                                varFile!.url!,
+                                varFile.url!,
                                 width: 200,
                                 height: 200,
                                 fit: BoxFit.fitHeight,

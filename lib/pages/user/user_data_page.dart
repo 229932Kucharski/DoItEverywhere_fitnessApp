@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/addidtional/route_to_up.dart';
-import 'package:die_app/pages/user/user_page.dart';
 import 'package:die_app/pages/user/user_settings_page.dart';
 import 'package:die_app/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';

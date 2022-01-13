@@ -14,7 +14,7 @@ class _UserAddFriendWidgetState extends State<UserAddFriendWidget> {
 
   Future<ParseObject?> findUser(String username) async {
     QueryBuilder<ParseObject> queryUsers =
-        QueryBuilder<ParseObject>(ParseUser.forQuery())
+        QueryBuilder<ParseObject>(ParseObject('_User'))
           ..whereEqualTo('username', username);
     final ParseResponse apiResponse = await queryUsers.query();
     if (apiResponse.success && apiResponse.results != null) {

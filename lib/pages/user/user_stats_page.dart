@@ -71,7 +71,7 @@ class UserStatsPage extends StatelessWidget {
               // part with buttons //
               SizedBox(
                   child: Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(30.0),
                 child: StatsChart(),
               )),
             ],

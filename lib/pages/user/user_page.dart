@@ -127,7 +127,7 @@ class UserPage extends StatelessWidget {
                                         context,
                                         RouteToDown(
                                             exitPage: this,
-                                            enterPage: UserSocialPage()));
+                                            enterPage: const UserSocialPage()));
                                   }
                                 },
                                 child: const Icon(Icons.people, size: 40),
