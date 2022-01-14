@@ -12,8 +12,10 @@ class UserFriendsList extends StatefulWidget {
 }
 
 class _UserFriendsListState extends State<UserFriendsList> {
+  ParseUser? currentUser;
+
   Future<List<User>>? getUserFriends() async {
-    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    currentUser = await ParseUser.currentUser() as ParseUser?;
     QueryBuilder<ParseObject> queryUserFriends =
         QueryBuilder<ParseObject>(ParseObject('UserFriends'))
           ..whereEqualTo('user', currentUser);
@@ -28,6 +30,7 @@ class _UserFriendsListState extends State<UserFriendsList> {
       }
       List<ParseObject>? allUsers = await getUsers();
       List<ParseObject>? allUsersData = await getUsersData();
+      //Add user friends to list
       for (ParseObject friend in users) {
         ParseObject? objectId = friend.get<ParseObject>('friend');
         String? name = getUserName(allUsers!, objectId!.objectId!);
@@ -37,7 +40,18 @@ class _UserFriendsListState extends State<UserFriendsList> {
             objectId: objectId, name: name, points: points, avatar: avatar);
         friends.add(user);
       }
+      //Add current user to list
+      int? points = getUserPoints(allUsersData!, currentUser!.objectId!);
+      ParseFileBase? avatar =
+          getUserAvatar(allUsersData, currentUser!.objectId!);
+      User user = User(
+          objectId: currentUser,
+          name: currentUser!.username,
+          points: points,
+          avatar: avatar);
+      friends.add(user);
     }
+    //Sort friends by points
     friends.sort((a, b) => b.points!.compareTo(a.points!));
     return friends;
   }
@@ -88,6 +102,30 @@ class _UserFriendsListState extends State<UserFriendsList> {
         return user.get<ParseFileBase>('avatar');
       }
     }
+  }
+
+  Future<void> deleteFriend(ParseObject user) async {
+    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
+    QueryBuilder<ParseObject> queryUserFriends =
+        QueryBuilder<ParseObject>(ParseObject('UserFriends'))
+          ..whereEqualTo("user", currentUser)
+          ..whereEqualTo("friend", user);
+    final ParseResponse apiResponse = await queryUserFriends.query();
+    if (apiResponse.success) {
+      List<ParseObject> users = apiResponse.results as List<ParseObject>;
+      var friend = ParseObject('UserFriends')..objectId = users[0].objectId;
+      await friend.delete();
+    }
+    queryUserFriends = QueryBuilder<ParseObject>(ParseObject('UserFriends'))
+      ..whereEqualTo("friend", currentUser)
+      ..whereEqualTo("user", user);
+    final ParseResponse apiResponse2 = await queryUserFriends.query();
+    if (apiResponse2.success) {
+      List<ParseObject> users = apiResponse2.results as List<ParseObject>;
+      var friend = ParseObject('UserFriends')..objectId = users[0].objectId;
+      await friend.delete();
+    }
+    setState(() {});
   }
 
   @override
@@ -191,52 +229,43 @@ class _UserFriendsListState extends State<UserFriendsList> {
                           ).image,
                   ),
                 ),
-                DataCell(Text(friend.name!), onLongPress: () async {
-                  if (await confirm(
-                    context,
-                    title: const Text('Confirm'),
-                    content: const Text('Would you like to delete friend?'),
-                    textOK: const Text('Yes'),
-                    textCancel: const Text('No'),
-                  )) {
-                    await deleteFriend(friend.objectId!);
-                  }
-                }),
-                DataCell(
-                  Text(((friend.points! / globals.maxPoints) * 100)
-                          .toInt()
-                          .toString() +
-                      "%"),
-                ),
+                (friend.name == currentUser!.username)
+                    ? DataCell(Text(
+                        friend.name!,
+                        style: TextStyle(
+                            color: Colors.amber[800],
+                            fontWeight: FontWeight.bold),
+                      ))
+                    : DataCell(Text(friend.name!), onLongPress: () async {
+                        if (await confirm(
+                          context,
+                          title: const Text('Confirm'),
+                          content:
+                              const Text('Would you like to delete friend?'),
+                          textOK: const Text('Yes'),
+                          textCancel: const Text('No'),
+                        )) {
+                          await deleteFriend(friend.objectId!);
+                        }
+                      }),
+                DataCell((friend.name == currentUser!.username)
+                    ? Text(
+                        ((friend.points! / globals.maxPoints) * 100)
+                                .toInt()
+                                .toString() +
+                            "%",
+                        style: TextStyle(
+                            color: Colors.amber[800],
+                            fontWeight: FontWeight.bold),
+                      )
+                    : Text(((friend.points! / globals.maxPoints) * 100)
+                            .toInt()
+                            .toString() +
+                        "%")),
               ]),
             )
             .toList(),
       ),
     );
-  }
-
-  Future<void> deleteFriend(ParseObject user) async {
-    ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
-    QueryBuilder<ParseObject> queryUserFriends =
-        QueryBuilder<ParseObject>(ParseObject('UserFriends'))
-          ..whereEqualTo("user", currentUser)
-          ..whereEqualTo("friend", user);
-    final ParseResponse apiResponse = await queryUserFriends.query();
-    if (apiResponse.success) {
-      List<ParseObject> users = apiResponse.results as List<ParseObject>;
-      var friend = ParseObject('UserFriends')..objectId = users[0].objectId;
-      await friend.delete();
-    }
-
-    queryUserFriends = QueryBuilder<ParseObject>(ParseObject('UserFriends'))
-      ..whereEqualTo("friend", currentUser)
-      ..whereEqualTo("user", user);
-    final ParseResponse apiResponse2 = await queryUserFriends.query();
-    if (apiResponse2.success) {
-      List<ParseObject> users = apiResponse2.results as List<ParseObject>;
-      var friend = ParseObject('UserFriends')..objectId = users[0].objectId;
-      await friend.delete();
-    }
-    setState(() {});
   }
 }

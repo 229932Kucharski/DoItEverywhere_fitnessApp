@@ -142,7 +142,7 @@ class _PointsChartState extends State<PointsChart> {
             tooltipBehavior: _tooltipBehavior,
             series: <CircularSeries>[
               RadialBarSeries<PointsData, String>(
-                  maximumValue: 100,
+                  maximumValue: 100000,
                   radius: '100%',
                   innerRadius: '65%',
                   gap: '10',
