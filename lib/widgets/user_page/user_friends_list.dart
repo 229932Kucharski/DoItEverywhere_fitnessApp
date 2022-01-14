@@ -205,7 +205,7 @@ class _UserFriendsListState extends State<UserFriendsList> {
           ),
           DataColumn(label: Text("Name"), numeric: false),
           DataColumn(
-            label: Text("Points"),
+            label: Text("Progress"),
             numeric: false,
           ),
         ],
