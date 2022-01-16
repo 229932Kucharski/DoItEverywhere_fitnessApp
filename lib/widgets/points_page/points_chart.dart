@@ -22,7 +22,7 @@ class _PointsChartState extends State<PointsChart> {
 
   ParseUser? currentUser;
 
-  Future<int?> getUser() async {
+  Future<int?> getUserPoints() async {
     if (!isPointsRestartNeeded && points != null) {
       return points;
     }
@@ -36,12 +36,14 @@ class _PointsChartState extends State<PointsChart> {
       DateTime updatedAt =
           DateTime.parse((objects[0].get('pointsUpdatedAt')).toString());
       int diff = DateTime.now().difference(updatedAt).inDays;
+      // Updated points if they haven't been updated within 24h
       if (diff > 0) {
+        // day = minus 10000 poitns
         int pointsToRemove = diff * 10000;
         int currentPoints = objects[0].get('points');
         currentPoints = currentPoints - pointsToRemove;
         if (currentPoints < 0) currentPoints = 0;
-        await updateUser(currentPoints);
+        await updateUser(objects[0].objectId, currentPoints);
         QueryBuilder<ParseObject> queryUserPoints =
             QueryBuilder<ParseObject>(ParseObject('UserData'))
               ..whereEqualTo('user', currentUser);
@@ -59,19 +61,9 @@ class _PointsChartState extends State<PointsChart> {
     }
   }
 
-  Future<void> updateUser(int points) async {
-    String? id;
-    QueryBuilder<ParseObject> queryUserPoints =
-        QueryBuilder<ParseObject>(ParseObject('UserData'))
-          ..whereEqualTo('user', currentUser);
-    final ParseResponse apiResponse = await queryUserPoints.query();
-
-    List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-    for (ParseObject object in objects) {
-      id = object.objectId;
-    }
+  Future<void> updateUser(String? objectId, int points) async {
     var user = ParseObject('UserData')
-      ..objectId = id
+      ..objectId = objectId
       ..set('points', points)
       ..set('pointsUpdatedAt', DateTime.now());
     await user.save();
@@ -101,7 +93,7 @@ class _PointsChartState extends State<PointsChart> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int?>(
-        future: getUser(),
+        future: getUserPoints(),
         builder: (context, snapshot) {
           return SfCircularChart(
             onCreateShader: (ChartShaderDetails chartShaderDetails) {
@@ -117,8 +109,7 @@ class _PointsChartState extends State<PointsChart> {
             },
             annotations: <CircularChartAnnotation>[
               CircularChartAnnotation(
-                  widget: Container(
-                      child: DefaultTextStyle(
+                  widget: DefaultTextStyle(
                 style: const TextStyle(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
@@ -137,7 +128,7 @@ class _PointsChartState extends State<PointsChart> {
                         : TyperAnimatedText(""),
                   ],
                 ),
-              )))
+              ))
             ],
             tooltipBehavior: _tooltipBehavior,
             series: <CircularSeries>[

@@ -6,6 +6,7 @@ DateTime? registerDate;
 
 DateTime? loginClickTime;
 
+// Check if button click is redundent by diff time
 bool isRedundentClick(DateTime currentTime) {
   if (loginClickTime == null) {
     loginClickTime = currentTime;
@@ -15,7 +16,6 @@ bool isRedundentClick(DateTime currentTime) {
     //set this difference time in seconds
     return true;
   }
-
   loginClickTime = currentTime;
   return false;
 }

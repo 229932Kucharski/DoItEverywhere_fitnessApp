@@ -50,7 +50,7 @@ class DieApp extends StatelessWidget {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-              case ConnectionState.waiting: // wyświetlanie kręcego się kółka
+              case ConnectionState.waiting:
                 return const Scaffold(
                   body: Center(
                     child: SizedBox(
