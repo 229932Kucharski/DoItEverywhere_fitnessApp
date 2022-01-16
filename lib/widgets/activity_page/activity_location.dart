@@ -55,7 +55,7 @@ class _ActivityLocationState extends State<ActivityLocation> {
                     fontFamily: 'SourceCodePro',
                     fontWeight: FontWeight.bold)),
             (chosenActivity!.isGpsRequired!)
-                ? (!currentSpeed.isInfinite)
+                ? (!currentSpeed.isInfinite && !currentSpeed.isNaN)
                     ? Text(currentSpeed.toInt().toString() + "km/h",
                         style: const TextStyle(
                           color: Colors.white,

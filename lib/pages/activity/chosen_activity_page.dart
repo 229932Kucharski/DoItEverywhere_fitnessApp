@@ -156,8 +156,10 @@ class _ChosenActivityState extends State<ChosenActivity> {
                                   points = minutes * chosenActivity!.points!;
                                   stopWatchTimer.onExecute
                                       .add(StopWatchExecute.reset);
-                                  await saveData();
-                                  await updateUser();
+                                  if (points > 0) {
+                                    await saveData();
+                                    await updateUser();
+                                  }
                                   totalDistance = 0.0;
                                   currentSpeed = 0.0;
                                   isPointsRestartNeeded = true;

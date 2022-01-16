@@ -28,6 +28,7 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
         num? duration = activity.get<num>('activityTime');
         num? distance = activity.get<num>('activityDistance');
         String? icon = activity.get<String>('activityIcon');
+        int? points = activity.get<int>('gainedPoints');
         date = date!.toLocal();
         var format = DateFormat.yMd();
         var dateString = format.format(date);
@@ -42,7 +43,8 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
             endTime: endTime,
             duration: duration,
             distance: distance,
-            activityIcon: icon);
+            activityIcon: icon,
+            points: points);
         userActivities.add(userActivity);
       }
     }
@@ -66,7 +68,7 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
               padding: const EdgeInsets.only(
                   left: 25, right: 25, top: 25, bottom: 10),
               child: SizedBox(
-                height: 420,
+                height: MediaQuery.of(context).size.height / 1.6,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xff333333),
@@ -120,6 +122,15 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
                                           snapshot.data![index].activityIcon!),
                                       color: Colors.white,
                                       size: 30,
+                                    ),
+                                    trailing: Text(
+                                      "+" +
+                                          snapshot.data![index].points!
+                                              .toString() +
+                                          "pkt",
+                                      style: TextStyle(
+                                          color: Colors.amber[800],
+                                          fontSize: 20),
                                     ),
                                     title: Text(snapshot.data![index].name!),
                                     subtitle: Text(
