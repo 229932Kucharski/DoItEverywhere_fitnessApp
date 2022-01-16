@@ -6,6 +6,7 @@ class UserActivity {
   num? duration;
   num? distance;
   String? activityIcon;
+  int? points;
 
   UserActivity({
     required this.name,
@@ -15,5 +16,6 @@ class UserActivity {
     required this.duration,
     required this.distance,
     required this.activityIcon,
+    required this.points,
   });
 }
