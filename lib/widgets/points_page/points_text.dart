@@ -24,7 +24,7 @@ class _PointsTextState extends State<PointsText> {
       return "You're doing well!";
     } else if (points! > 70000) {
       return "Dont't stop!";
-    } else if (points! > 50000) {
+    } else if (points! >= 50000) {
       return "Don't let the points drop";
     } else if (points! > 30000) {
       return "You can be better";

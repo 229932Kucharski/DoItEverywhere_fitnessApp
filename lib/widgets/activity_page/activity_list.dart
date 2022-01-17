@@ -98,36 +98,55 @@ class _ActivityListState extends State<ActivityList> {
             child: FutureBuilder<List<Activity>>(
               future: readActivities(),
               builder: (context, snapshot) {
-                return DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                      value: chosenActivityName,
-                      isExpanded: true,
-                      iconSize: 36,
-                      menuMaxHeight: 500.0,
-                      items: snapshot.data?.map((Activity map) {
-                        return DropdownMenuItem<String>(
-                            value: map.name,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(map.name!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontFamily: 'SourceCodePro',
-                                    )),
-                                ImageIcon(
-                                  AssetImage("assets/icons/" + map.icon!),
-                                  color: Colors.amber[800],
-                                )
-                              ],
-                            ));
-                      }).toList(),
-                      onChanged: (value) => setState(() {
-                            chosenActivityName = value as String?;
-                            setChosenActivity(chosenActivityName);
-                          })),
-                );
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                        value: chosenActivityName,
+                        isExpanded: true,
+                        iconSize: 36,
+                        menuMaxHeight: 500.0,
+                        items: snapshot.data?.map((Activity map) {
+                          return DropdownMenuItem<String>(
+                              value: map.name,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(map.name!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontFamily: 'SourceCodePro',
+                                      )),
+                                  ImageIcon(
+                                    AssetImage("assets/icons/" + map.icon!),
+                                    color: Colors.amber[800],
+                                  )
+                                ],
+                              ));
+                        }).toList(),
+                        onChanged: (value) => setState(() {
+                              chosenActivityName = value as String?;
+                              setChosenActivity(chosenActivityName);
+                            })),
+                  );
+                } else {
+                  // Display empty dropdownMenuItem while reading data
+                  return DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                        value: "",
+                        isExpanded: true,
+                        iconSize: 36,
+                        menuMaxHeight: 500.0,
+                        items: const [
+                          DropdownMenuItem<String>(
+                            value: "",
+                            child: Text(""),
+                          )
+                        ],
+                        onChanged: null),
+                  );
+                }
               },
             )));
   }

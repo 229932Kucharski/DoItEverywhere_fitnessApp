@@ -155,6 +155,12 @@ class _LoginState extends State<Login> {
   void doUserLogin() async {
     final username = controllerUsername.text.trim();
     final password = controllerPassword.text.trim();
+
+    if (username.isEmpty || password.isEmpty) {
+      showError("Some fields are still empty");
+      return;
+    }
+
     final user = ParseUser(username, password, null);
     var response = await user.login();
 

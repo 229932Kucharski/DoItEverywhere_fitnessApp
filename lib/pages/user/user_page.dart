@@ -26,10 +26,23 @@ class UserPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
+              padding: const EdgeInsets.only(right: 20, top: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [LogoutButton()],
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    children: const [
+                      LogoutButton(),
+                      Text(
+                        "Logout",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'SourceCodePro',
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
             // part with avatar //

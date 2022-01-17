@@ -37,8 +37,10 @@ class _ActivityLocationState extends State<ActivityLocation> {
   @override
   void initState() {
     super.initState();
-    _requestPermission();
-    location.enableBackgroundMode(enable: true);
+    if (chosenActivity!.isGpsRequired!) {
+      _requestPermission();
+      location.enableBackgroundMode(enable: true);
+    }
   }
 
   @override
