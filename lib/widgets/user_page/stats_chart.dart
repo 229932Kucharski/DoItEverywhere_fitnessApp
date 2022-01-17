@@ -26,19 +26,16 @@ class StatsChartState extends State<StatsChart> {
   @override
   void initState() {
     super.initState();
-    getUserPoints();
   }
 
   Future<void> getUserPoints() async {
-    print('dates');
+    await getUser();
     for (int i = 0; i < 7; i++) {
       dates.add(format.format(DateTime.now().subtract(Duration(days: i))));
-      print(dates[i].toString());
     }
-    print('points');
     QueryBuilder<ParseObject> queryUserData =
         QueryBuilder<ParseObject>(ParseObject('UserActivity'))
-          ..whereEqualTo('user', currentUser)
+          ..whereEqualTo('userId', currentUser)
           ..whereGreaterThan(
               'createdAt', DateTime.now().subtract(const Duration(days: 7)));
     final ParseResponse apiResponse = await queryUserData.query();
@@ -49,52 +46,77 @@ class StatsChartState extends State<StatsChart> {
             element.compareTo(format.format(object.get('createdAt'))) == 0);
         points[index] += object.get<int>('gainedPoints')!;
       }
+      addPointsAndDates();
     }
-    for (int i = 0; i < 7; i++) print(points[i].toDouble());
-    addPointsAndDates();
   }
 
   Future<void> addPointsAndDates() async {
     for (int i = 0; i < 7; i++) {
       data.add(_PointsData(dates[i].toString(), points[i].toDouble()));
-      print(dates[i].toString() + points[i].toDouble().toString()); //XD
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //Initialize the chart widget
-        SfCartesianChart(
-          primaryXAxis: CategoryAxis(),
-          palette: const [Color(0xFFFF9505)],
-          // Enable legend
-          legend: Legend(
-            isVisible: true,
-            position: LegendPosition.bottom,
-          ),
-          // Enable tooltip
-          tooltipBehavior: TooltipBehavior(enable: true),
-          series: <ChartSeries<_PointsData, String>>[
-            LineSeries<_PointsData, String>(
-              dataSource: data,
-              xValueMapper: (_PointsData points, _) => points.year,
-              yValueMapper: (_PointsData points, _) => points.points,
-              name: 'Your points',
-              // Enable data label
-              dataLabelSettings: const DataLabelSettings(isVisible: true),
-            ),
-          ],
-        ),
-      ],
+    return FutureBuilder<void>(
+      future: getUserPoints(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Column(
+            children: [
+              //Initialize the chart widget
+              SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                palette: const [Color(0xFFFF9505)],
+                // Enable legend
+                legend: Legend(
+                  isVisible: true,
+                  position: LegendPosition.bottom,
+                ),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_PointsData, String>>[
+                  ColumnSeries<_PointsData, String>(
+                    dataSource: data,
+                    xValueMapper: (_PointsData points, _) => points.day,
+                    yValueMapper: (_PointsData points, _) => points.points,
+                    name: 'Your points',
+                    // Enable data label
+                    dataLabelSettings: const DataLabelSettings(isVisible: true),
+                  ),
+                ],
+              ),
+            ],
+          );
+        } else if (snapshot.connectionState == ConnectionState.none) {
+          return Column(
+            children: const [
+              Text("Check your internet conncetion"),
+              SizedBox(
+                height: 130,
+              ),
+              CircularProgressIndicator(),
+            ],
+          );
+        } else {
+          return Column(
+            children: const [
+              Text("Please wait"),
+              SizedBox(
+                height: 130,
+              ),
+              CircularProgressIndicator(),
+            ],
+          );
+        }
+      },
     );
   }
 }
 
 class _PointsData {
-  _PointsData(this.year, this.points);
+  _PointsData(this.day, this.points);
 
-  final String year;
+  final String day;
   final double points;
 }
