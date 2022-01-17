@@ -1,8 +1,8 @@
-import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/pages/activity/chosen_activity_page.dart';
-import 'package:die_app/widgets/activity_page/activity_list.dart';
+import 'package:DIE/addidtional/route_to_down.dart';
+import 'package:DIE/pages/activity/chosen_activity_page.dart';
+import 'package:DIE/widgets/activity_page/activity_list.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class ActivityPage extends StatelessWidget {
   const ActivityPage({Key? key}) : super(key: key);

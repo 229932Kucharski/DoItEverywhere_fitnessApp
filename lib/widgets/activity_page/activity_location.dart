@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math' show cos, sqrt, asin;
 
-import 'package:die_app/pages/activity/chosen_activity_page.dart';
+import 'package:DIE/pages/activity/chosen_activity_page.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/widgets/activity_page/activity_list.dart';
+import 'package:DIE/widgets/activity_page/activity_list.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 
@@ -37,8 +37,10 @@ class _ActivityLocationState extends State<ActivityLocation> {
   @override
   void initState() {
     super.initState();
-    _requestPermission();
-    location.enableBackgroundMode(enable: true);
+    if (chosenActivity!.isGpsRequired!) {
+      _requestPermission();
+      location.enableBackgroundMode(enable: true);
+    }
   }
 
   @override

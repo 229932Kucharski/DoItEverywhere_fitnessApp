@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -135,8 +135,12 @@ class _SignUpState extends State<SignUp> {
         return AlertDialog(
           title: const Text("Error!"),
           content: Text(errorMessage),
-          actions: const <Widget>[
-            Text("OK"),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () => {
+                      Navigator.pop(context),
+                    },
+                child: const Text("Ok"))
           ],
         );
       },
@@ -163,14 +167,22 @@ class _SignUpState extends State<SignUp> {
     final email = controllerEmail.text.trim();
     final password = controllerPassword.text.trim();
 
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      showError("Some fields are still empty");
+      return;
+    }
+
     final user = ParseUser.createUser(username, password, email);
 
     var response = await user.signUp();
 
     if (response.success) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(milliseconds: 1500),
+          content: Text("You have signed up successfully")));
+      Navigator.pop(context);
       await createUserPoints(user);
       await createUserFavAct(user);
-      Navigator.pop(context);
     } else {
       showError(response.error!.message);
     }

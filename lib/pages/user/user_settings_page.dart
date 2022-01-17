@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/user_page/user_data_settings_widget.dart';
+import 'package:DIE/widgets/user_page/user_data_settings_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserSettingsPage extends StatelessWidget {
   const UserSettingsPage({Key? key}) : super(key: key);
@@ -8,6 +8,7 @@ class UserSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SizedBox.expand(
         child: Container(
           decoration: const BoxDecoration(

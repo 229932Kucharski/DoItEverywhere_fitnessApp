@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/user_page/user_activities_list.dart';
+import 'package:DIE/widgets/user_page/user_activities_list.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserHistoryPage extends StatelessWidget {
   const UserHistoryPage({Key? key}) : super(key: key);

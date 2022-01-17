@@ -14,9 +14,9 @@ class _UserDataSettingsWidgetState extends State<UserDataSettingsWidget> {
   final controllerAge = TextEditingController();
 
   ParseUser? currentUser;
-  int? height = 180;
-  int? weight = 70;
-  int? age = 20;
+  int? height = 0;
+  int? weight = 0;
+  int? age = 0;
 
   Future<ParseUser?> getUser() async {
     currentUser = await ParseUser.currentUser() as ParseUser?;
@@ -45,12 +45,7 @@ class _UserDataSettingsWidgetState extends State<UserDataSettingsWidget> {
     final ParseResponse apiResponse = await queryUserData.query();
     if (apiResponse.success && apiResponse.results != null) {
       List<ParseObject> objects = apiResponse.results as List<ParseObject>;
-      for (ParseObject object in objects) {
-        id = object.objectId;
-        currentHeight = object.get('height');
-        currentWeight = object.get('weight');
-        currentAge = object.get('age');
-      }
+      id = objects[0].objectId;
       currentHeight = height;
       currentWeight = weight;
       currentAge = age;
@@ -61,6 +56,25 @@ class _UserDataSettingsWidgetState extends State<UserDataSettingsWidget> {
         ..set('age', currentAge);
       await user.save();
     }
+  }
+
+  void showError(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Error!"),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () => {
+                      Navigator.pop(context),
+                    },
+                child: const Text("Ok"))
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -111,6 +125,9 @@ class _UserDataSettingsWidgetState extends State<UserDataSettingsWidget> {
                         borderSide: BorderSide(color: Colors.black)),
                     labelText: 'Age'),
               ),
+              const SizedBox(
+                height: 25,
+              ),
               SizedBox(
                 height: 50,
                 child: TextButton(
@@ -123,7 +140,17 @@ class _UserDataSettingsWidgetState extends State<UserDataSettingsWidget> {
                     ),
                   ),
                   onPressed: () async {
+                    if (controllerHeight.text == "" ||
+                        controllerWeight.text == "" ||
+                        controllerAge.text == "") {
+                      showError("Some fields are empty");
+                      return;
+                    }
                     await updateUser();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        duration: Duration(milliseconds: 1500),
+                        content: Text("Settings has been updated")));
                   },
                 ),
               ),

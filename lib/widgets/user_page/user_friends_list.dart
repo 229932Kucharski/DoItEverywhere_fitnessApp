@@ -1,8 +1,8 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
-import 'package:die_app/models/user.dart';
+import 'package:DIE/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserFriendsList extends StatefulWidget {
   const UserFriendsList({Key? key}) : super(key: key);

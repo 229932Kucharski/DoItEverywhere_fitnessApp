@@ -1,4 +1,4 @@
-# die_app
+# DIE
 
 A new Flutter project.
 

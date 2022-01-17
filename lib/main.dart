@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:die_app/pages/home_page.dart';
+import 'package:DIE/pages/home_page.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/fooderlich_theme.dart';
-import 'package:die_app/back4app/login.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/fooderlich_theme.dart';
+import 'package:DIE/back4app/login.dart';
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

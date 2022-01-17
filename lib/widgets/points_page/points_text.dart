@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-import 'package:die_app/widgets/points_page/points_chart.dart';
+import 'package:DIE/widgets/points_page/points_chart.dart';
 
 class PointsText extends StatefulWidget {
   const PointsText({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _PointsTextState extends State<PointsText> {
       return "You're doing well!";
     } else if (points! > 70000) {
       return "Dont't stop!";
-    } else if (points! > 50000) {
+    } else if (points! >= 50000) {
       return "Don't let the points drop";
     } else if (points! > 30000) {
       return "You can be better";

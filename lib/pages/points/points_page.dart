@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/points_page/points_text.dart';
+import 'package:DIE/widgets/points_page/points_text.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/widgets/points_page/points_chart.dart';
+import 'package:DIE/widgets/points_page/points_chart.dart';
 
 class PointsPage extends StatelessWidget {
   const PointsPage({

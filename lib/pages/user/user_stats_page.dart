@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/user_page/stats_chart.dart';
+import 'package:DIE/widgets/user_page/stats_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserStatsPage extends StatelessWidget {
   const UserStatsPage({Key? key}) : super(key: key);

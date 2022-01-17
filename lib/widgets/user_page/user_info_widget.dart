@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserInfoWidget extends StatefulWidget {
   const UserInfoWidget({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class _UserInfoState extends State<UserInfoWidget> {
   double activityTime = 0;
   int numOfActivities = 0;
   String registerDate = "";
+
   Future<bool>? getUserActivityStats() async {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     registerDate = formatter.format(globals.registerDate!);

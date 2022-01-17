@@ -1,4 +1,4 @@
-library die_app.globals;
+library DIE.globals;
 
 int maxPoints = 100000;
 String? username = '';
