@@ -1,9 +1,9 @@
-import 'package:die_app/widgets/activity_page/activity_list.dart';
-import 'package:die_app/widgets/user_page/user_fav_act_list.dart';
+import 'package:DIE/widgets/activity_page/activity_list.dart';
+import 'package:DIE/widgets/user_page/user_fav_act_list.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:collection/collection.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserFavourites extends StatelessWidget {
   const UserFavourites({Key? key}) : super(key: key);
@@ -75,7 +75,7 @@ class UserFavourites extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (!globals.isRedundentClick(DateTime.now())) {
-                                await saveFavActivities();
+                                saveFavActivities();
                                 Navigator.pop(context);
                               }
                             },

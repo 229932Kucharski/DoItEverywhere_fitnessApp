@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-import 'package:die_app/widgets/points_page/points_chart.dart';
+import 'package:DIE/widgets/points_page/points_chart.dart';
 
 class PointsText extends StatefulWidget {
   const PointsText({Key? key}) : super(key: key);

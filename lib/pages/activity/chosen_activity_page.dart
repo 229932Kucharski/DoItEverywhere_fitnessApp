@@ -1,12 +1,12 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
-import 'package:die_app/widgets/activity_page/activity_location.dart';
-import 'package:die_app/widgets/activity_page/activity_timer.dart';
-import 'package:die_app/widgets/activity_page/activity_list.dart';
-import 'package:die_app/widgets/points_page/points_chart.dart';
+import 'package:DIE/widgets/activity_page/activity_location.dart';
+import 'package:DIE/widgets/activity_page/activity_timer.dart';
+import 'package:DIE/widgets/activity_page/activity_list.dart';
+import 'package:DIE/widgets/points_page/points_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class ChosenActivityController {
   late void Function() listenLocation;

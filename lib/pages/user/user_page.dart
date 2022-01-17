@@ -1,14 +1,14 @@
-import 'package:die_app/widgets/user_page/user_avatar_widget.dart';
+import 'package:DIE/widgets/user_page/user_avatar_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:die_app/addidtional/globals.dart' as globals;
-import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/pages/user/user_data_page.dart';
-import 'package:die_app/pages/user/user_favourites_page.dart';
-import 'package:die_app/pages/user/user_history_page.dart';
-import 'package:die_app/pages/user/user_info_page.dart';
-import 'package:die_app/pages/user/user_social_page.dart';
-import 'package:die_app/widgets/user_page/logout_button.dart';
+import 'package:DIE/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/route_to_down.dart';
+import 'package:DIE/pages/user/user_data_page.dart';
+import 'package:DIE/pages/user/user_favourites_page.dart';
+import 'package:DIE/pages/user/user_history_page.dart';
+import 'package:DIE/pages/user/user_info_page.dart';
+import 'package:DIE/pages/user/user_social_page.dart';
+import 'package:DIE/widgets/user_page/logout_button.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);

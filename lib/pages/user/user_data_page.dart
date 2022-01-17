@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/pages/user/user_settings_page.dart';
-import 'package:die_app/pages/user/user_stats_page.dart';
+import 'package:DIE/addidtional/route_to_down.dart';
+import 'package:DIE/pages/user/user_settings_page.dart';
+import 'package:DIE/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserDataPage extends StatefulWidget {
   const UserDataPage({Key? key}) : super(key: key);
@@ -56,6 +56,7 @@ class _UserDataPageState extends State<UserDataPage> {
       future: getUser(),
       builder: (context, snapshot) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: SizedBox.expand(
             child: Container(
               decoration: const BoxDecoration(
@@ -121,9 +122,9 @@ class _UserDataPageState extends State<UserDataPage> {
                   ),
 
                   // part with buttons //
-                  SizedBox(
+                  Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.only(top: 45),
                       child: Column(
                         children: [
                           const Align(
@@ -139,7 +140,7 @@ class _UserDataPageState extends State<UserDataPage> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "$height cm\n",
+                              (height == null) ? "-" : "$height cm\n",
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'SourceCodePro',
@@ -159,7 +160,7 @@ class _UserDataPageState extends State<UserDataPage> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "$weight kg\n",
+                              (height == null) ? "-" : "$weight kg\n",
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'SourceCodePro',
@@ -179,108 +180,105 @@ class _UserDataPageState extends State<UserDataPage> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "$age\n",
+                              (height == null) ? "-" : "$age\n",
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'SourceCodePro',
                               ),
                             ),
                           ),
-                          Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .center, //Center Row contents horizontally,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 35, top: 30),
-                                    child: SizedBox(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          if (!globals.isRedundentClick(
-                                              DateTime.now())) {
-                                            Navigator.push(
-                                                context,
-                                                RouteToDown(
-                                                    exitPage:
-                                                        const UserDataPage(),
-                                                    enterPage:
-                                                        const UserStatsPage()));
-                                          }
-                                        },
-                                        child: const Icon(
-                                            Icons.insert_chart_outlined_sharp,
-                                            size: 50),
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              const CircleBorder()),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.all(25)),
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.deepPurple[
-                                                      800]), // <-- Button color
-                                          overlayColor: MaterialStateProperty
-                                              .resolveWith<Color?>(
-                                            (states) {
-                                              if (states.contains(
-                                                  MaterialState.pressed)) {
-                                                return Colors.amber[800];
-                                              } // <-- Splash color
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 35, top: 30),
-                                    child: SizedBox(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          if (!globals.isRedundentClick(
-                                              DateTime.now())) {
-                                            Navigator.push(
-                                                context,
-                                                RouteToDown(
-                                                    exitPage:
-                                                        const UserDataPage(),
-                                                    enterPage:
-                                                        const UserSettingsPage()));
-                                          }
-                                        },
-                                        child: const Icon(Icons.settings,
-                                            size: 50),
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              const CircleBorder()),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.all(25)),
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.deepPurple[
-                                                      800]), // <-- Button color
-                                          overlayColor: MaterialStateProperty
-                                              .resolveWith<Color?>(
-                                            (states) {
-                                              if (states.contains(
-                                                  MaterialState.pressed)) {
-                                                return Colors.amber[800];
-                                              } // <-- Splash color
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ))
                         ],
                       ),
                     ),
                   ),
+                  Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 55, top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .center, //Center Row contents horizontally,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 35, top: 30),
+                              child: SizedBox(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (!globals
+                                        .isRedundentClick(DateTime.now())) {
+                                      Navigator.push(
+                                          context,
+                                          RouteToDown(
+                                              exitPage: const UserDataPage(),
+                                              enterPage:
+                                                  const UserStatsPage()));
+                                    }
+                                  },
+                                  child: const Icon(
+                                      Icons.insert_chart_outlined_sharp,
+                                      size: 50),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        const CircleBorder()),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.all(25)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.deepPurple[
+                                            800]), // <-- Button color
+                                    overlayColor: MaterialStateProperty
+                                        .resolveWith<Color?>(
+                                      (states) {
+                                        if (states
+                                            .contains(MaterialState.pressed)) {
+                                          return Colors.amber[800];
+                                        } // <-- Splash color
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 35, top: 30),
+                              child: SizedBox(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (!globals
+                                        .isRedundentClick(DateTime.now())) {
+                                      Navigator.push(
+                                          context,
+                                          RouteToDown(
+                                              exitPage: const UserDataPage(),
+                                              enterPage:
+                                                  const UserSettingsPage()));
+                                    }
+                                  },
+                                  child: const Icon(Icons.settings, size: 50),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        const CircleBorder()),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.all(25)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.deepPurple[
+                                            800]), // <-- Button color
+                                    overlayColor: MaterialStateProperty
+                                        .resolveWith<Color?>(
+                                      (states) {
+                                        if (states
+                                            .contains(MaterialState.pressed)) {
+                                          return Colors.amber[800];
+                                        } // <-- Splash color
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ))
                 ],
               ),
             ),

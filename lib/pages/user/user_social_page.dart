@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/pages/user/user_add_friend_page.dart';
-import 'package:die_app/pages/user/user_invitations_page.dart';
-import 'package:die_app/widgets/user_page/user_friends_list.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/route_to_down.dart';
+import 'package:DIE/pages/user/user_add_friend_page.dart';
+import 'package:DIE/pages/user/user_invitations_page.dart';
+import 'package:DIE/widgets/user_page/user_friends_list.dart';
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserSocialPage extends StatelessWidget {
   const UserSocialPage({

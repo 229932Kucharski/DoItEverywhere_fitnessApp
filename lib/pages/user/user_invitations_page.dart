@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/user_page/user_invitations_widget.dart';
+import 'package:DIE/widgets/user_page/user_invitations_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserInvitationsPage extends StatelessWidget {
   const UserInvitationsPage({Key? key}) : super(key: key);

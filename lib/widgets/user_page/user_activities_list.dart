@@ -1,4 +1,4 @@
-import 'package:die_app/models/user_activity.dart';
+import 'package:DIE/models/user_activity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';

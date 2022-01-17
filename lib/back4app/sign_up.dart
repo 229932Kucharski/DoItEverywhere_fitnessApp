@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

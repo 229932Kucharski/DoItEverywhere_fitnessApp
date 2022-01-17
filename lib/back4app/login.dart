@@ -1,10 +1,10 @@
-import 'package:die_app/addidtional/route_to_down.dart';
-import 'package:die_app/addidtional/route_to_up.dart';
-import 'package:die_app/back4app/sign_up.dart';
-import 'package:die_app/pages/home_page.dart';
+import 'package:DIE/addidtional/route_to_down.dart';
+import 'package:DIE/addidtional/route_to_up.dart';
+import 'package:DIE/back4app/sign_up.dart';
+import 'package:DIE/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

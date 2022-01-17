@@ -1,6 +1,6 @@
-import 'package:die_app/widgets/user_page/user_add_friend_widget.dart';
+import 'package:DIE/widgets/user_page/user_add_friend_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 
 class UserAddFriendPage extends StatelessWidget {
   const UserAddFriendPage({Key? key}) : super(key: key);

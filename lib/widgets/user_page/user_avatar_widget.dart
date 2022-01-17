@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:die_app/addidtional/globals.dart' as globals;
+import 'package:DIE/addidtional/globals.dart' as globals;
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -90,30 +90,28 @@ class _UserAvatarWidgetState extends State<UserAvatarWidget> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
-                        if (snapshot.data == null) {
-                          return const CircleAvatar(
-                            radius: 90,
-                            backgroundColor: Color(0xFFFF9505),
-                            child: CircleAvatar(
-                                radius: 85,
-                                backgroundImage:
-                                    AssetImage('assets/users/avatar.png')),
-                          );
-                        } else {
-                          return CircleAvatar(
-                            radius: 90,
-                            backgroundColor: const Color(0xFFFF9505),
-                            child: CircleAvatar(
+                        return CircleAvatar(
+                          radius: 90,
+                          backgroundColor: const Color(0xFFFF9505),
+                          child: CircleAvatar(
+                            radius: 85,
+                            backgroundImage: Image.network(
+                              snapshot.data!.url!,
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.fitHeight,
+                            ).image,
+                          ),
+                        );
+                      } else {
+                        return const CircleAvatar(
+                          radius: 90,
+                          backgroundColor: Color(0xFFFF9505),
+                          child: CircleAvatar(
                               radius: 85,
-                              backgroundImage: Image.network(
-                                snapshot.data!.url!,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.fitHeight,
-                              ).image,
-                            ),
-                          );
-                        }
+                              backgroundImage:
+                                  AssetImage('assets/users/avatar.png')),
+                        );
                       }
                     }
                     return Column(children: const [

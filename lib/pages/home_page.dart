@@ -1,6 +1,7 @@
-import 'package:die_app/pages/activity/activity_page.dart';
-import 'package:die_app/pages/user/user_page.dart';
+import 'package:DIE/pages/activity/activity_page.dart';
+import 'package:DIE/pages/user/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:move_to_background/move_to_background.dart';
 
 import 'points/points_page.dart';
 
@@ -28,7 +29,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        MoveToBackground.moveTaskToBack();
+        return false;
+      },
       child: Scaffold(
         extendBody: true,
         body: GestureDetector(
