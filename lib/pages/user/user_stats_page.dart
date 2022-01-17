@@ -1,29 +1,9 @@
 import 'package:die_app/widgets/user_page/stats_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:die_app/addidtional/globals.dart' as globals;
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-class UserStatsPage extends StatefulWidget {
+class UserStatsPage extends StatelessWidget {
   const UserStatsPage({Key? key}) : super(key: key);
-
-  @override
-  _UserStatsPageState createState() => _UserStatsPageState();
-}
-
-class _UserStatsPageState extends State<UserStatsPage> {
-  ParseUser? currentUser;
-  List<int> points = List<int>.empty();
-  List<String> dates = List<String>.empty();
-
-  Future<ParseUser?> getUser() async {
-    currentUser = await ParseUser.currentUser() as ParseUser?;
-    return currentUser;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

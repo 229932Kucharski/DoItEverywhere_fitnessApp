@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatsChart extends StatefulWidget {
@@ -10,15 +12,55 @@ class StatsChart extends StatefulWidget {
 }
 
 class StatsChartState extends State<StatsChart> {
-  List<_PointsData> data = [
-    _PointsData('Mon', 35000),
-    _PointsData('Tue', 28000),
-    _PointsData('Wed', 34000),
-    _PointsData('Thu', 32000),
-    _PointsData('Fri', 40000),
-    _PointsData('Sat', 50000),
-    _PointsData('Sun', 60000)
-  ];
+  ParseUser? currentUser;
+  List<int> points = [0, 0, 0, 0, 0, 0, 0];
+  List<String> dates = [];
+  var format = DateFormat.yMd();
+  List<_PointsData> data = [];
+
+  Future<ParseUser?> getUser() async {
+    currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserPoints();
+  }
+
+  Future<void> getUserPoints() async {
+    print('dates');
+    for (int i = 0; i < 7; i++) {
+      dates.add(format.format(DateTime.now().subtract(Duration(days: i))));
+      print(dates[i].toString());
+    }
+    print('points');
+    QueryBuilder<ParseObject> queryUserData =
+        QueryBuilder<ParseObject>(ParseObject('UserActivity'))
+          ..whereEqualTo('user', currentUser)
+          ..whereGreaterThan(
+              'createdAt', DateTime.now().subtract(const Duration(days: 7)));
+    final ParseResponse apiResponse = await queryUserData.query();
+    if (apiResponse.success && apiResponse.results != null) {
+      List<ParseObject> objects = apiResponse.results as List<ParseObject>;
+      for (ParseObject object in objects) {
+        int index = dates.indexWhere((element) =>
+            element.compareTo(format.format(object.get('createdAt'))) == 0);
+        points[index] += object.get<int>('gainedPoints')!;
+      }
+    }
+    for (int i = 0; i < 7; i++) print(points[i].toDouble());
+    addPointsAndDates();
+  }
+
+  Future<void> addPointsAndDates() async {
+    for (int i = 0; i < 7; i++) {
+      data.add(_PointsData(dates[i].toString(), points[i].toDouble()));
+      print(dates[i].toString() + points[i].toDouble().toString()); //XD
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
