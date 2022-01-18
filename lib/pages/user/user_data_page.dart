@@ -200,47 +200,7 @@ class _UserDataPageState extends State<UserDataPage> {
                               .center, //Center Row contents horizontally,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 35, top: 30),
-                              child: SizedBox(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    if (!globals
-                                        .isRedundentClick(DateTime.now())) {
-                                      Navigator.push(
-                                          context,
-                                          RouteToDown(
-                                              exitPage: const UserDataPage(),
-                                              enterPage:
-                                                  const UserStatsPage()));
-                                    }
-                                  },
-                                  child: const Icon(
-                                      Icons.insert_chart_outlined_sharp,
-                                      size: 50),
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(
-                                        const CircleBorder()),
-                                    padding: MaterialStateProperty.all(
-                                        const EdgeInsets.all(25)),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.deepPurple[
-                                            800]), // <-- Button color
-                                    overlayColor: MaterialStateProperty
-                                        .resolveWith<Color?>(
-                                      (states) {
-                                        if (states
-                                            .contains(MaterialState.pressed)) {
-                                          return Colors.amber[800];
-                                        } // <-- Splash color
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 35, top: 30),
+                              padding: const EdgeInsets.only(top: 30),
                               child: SizedBox(
                                 child: ElevatedButton(
                                   onPressed: () {
@@ -259,7 +219,7 @@ class _UserDataPageState extends State<UserDataPage> {
                                     shape: MaterialStateProperty.all(
                                         const CircleBorder()),
                                     padding: MaterialStateProperty.all(
-                                        const EdgeInsets.all(25)),
+                                        const EdgeInsets.all(15)),
                                     backgroundColor: MaterialStateProperty.all(
                                         Colors.deepPurple[
                                             800]), // <-- Button color
