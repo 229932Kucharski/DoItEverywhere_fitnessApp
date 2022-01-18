@@ -1,3 +1,4 @@
+import 'package:DIE/pages/user/user_history_navigator.dart';
 import 'package:DIE/widgets/user_page/user_avatar_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -181,7 +182,8 @@ class UserPage extends StatelessWidget {
                                     context,
                                     RouteToDown(
                                         exitPage: this,
-                                        enterPage: const UserHistoryPage()));
+                                        enterPage:
+                                            const UserHistoryNavigator()));
                               }
                             },
                             child: const Icon(Icons.history, size: 40),

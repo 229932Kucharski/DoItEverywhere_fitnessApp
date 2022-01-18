@@ -11,7 +11,7 @@ class UserHistoryPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/background/bg_03_1.png"),
+            image: AssetImage("assets/background/bg_01_1.png"),
             fit: BoxFit.cover,
           ),
         ),

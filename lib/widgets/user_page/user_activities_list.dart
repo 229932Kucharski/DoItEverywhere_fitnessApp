@@ -65,10 +65,9 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             return Padding(
-              padding: const EdgeInsets.only(
-                  left: 25, right: 25, top: 25, bottom: 10),
+              padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height / 1.6,
+                height: MediaQuery.of(context).size.height / 1.8,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xff333333),
