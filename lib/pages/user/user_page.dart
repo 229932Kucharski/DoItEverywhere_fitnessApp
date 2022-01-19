@@ -6,7 +6,6 @@ import 'package:DIE/addidtional/globals.dart' as globals;
 import 'package:DIE/addidtional/route_to_down.dart';
 import 'package:DIE/pages/user/user_data_page.dart';
 import 'package:DIE/pages/user/user_favourites_page.dart';
-import 'package:DIE/pages/user/user_history_page.dart';
 import 'package:DIE/pages/user/user_info_page.dart';
 import 'package:DIE/pages/user/user_social_page.dart';
 import 'package:DIE/widgets/user_page/logout_button.dart';

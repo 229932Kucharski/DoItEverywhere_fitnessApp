@@ -5,6 +5,8 @@ import 'package:move_to_background/move_to_background.dart';
 
 import 'points/points_page.dart';
 
+int? lastPageIndex;
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -14,10 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
-  int _selectedIndex = 0;
+  int _selectedIndex = (lastPageIndex == null) ? 0 : lastPageIndex!;
   void onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
+      lastPageIndex = index;
     });
   }
 

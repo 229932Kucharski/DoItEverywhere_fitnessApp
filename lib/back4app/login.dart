@@ -1,3 +1,4 @@
+import 'package:DIE/addidtional/globals.dart';
 import 'package:DIE/addidtional/route_to_down.dart';
 import 'package:DIE/addidtional/route_to_up.dart';
 import 'package:DIE/back4app/sign_up.dart';
@@ -132,32 +133,12 @@ class _LoginState extends State<Login> {
     ));
   }
 
-  void showError(String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Error!"),
-          content: Text(errorMessage),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void doUserLogin() async {
     final username = controllerUsername.text.trim();
     final password = controllerPassword.text.trim();
 
     if (username.isEmpty || password.isEmpty) {
-      showError("Some fields are still empty");
+      showError(context, "Some fields are still empty");
       return;
     }
 
@@ -171,7 +152,7 @@ class _LoginState extends State<Login> {
       Navigator.push(context,
           RouteToUp(exitPage: const Login(), enterPage: const HomePage()));
     } else {
-      showError(response.error!.message);
+      showError(context, "Please check your Internet connection.");
     }
   }
 }

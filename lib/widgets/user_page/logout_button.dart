@@ -1,4 +1,5 @@
 import 'package:DIE/back4app/login.dart';
+import 'package:DIE/pages/home_page.dart';
 import 'package:DIE/widgets/activity_page/activity_list.dart';
 import 'package:DIE/widgets/points_page/points_chart.dart';
 import 'package:DIE/widgets/user_page/user_avatar_widget.dart';
@@ -19,12 +20,15 @@ class _LogoutButtonState extends State<LogoutButton> {
     var response =
         await (await ParseUser.currentUser() as ParseUser?)!.logout();
     if (response.success) {
+      // Clear global variables
+      selectedFav = List.generate(activities.length, (i) => false);
       readedActivities = [];
       chosenActivityName = null;
-      selectedFav = List.generate(activities.length, (i) => false);
       isActivityListRestartNeeded = true;
       isPointsRestartNeeded = true;
       avatarFile = null;
+      lastPageIndex = null;
+      // Remove until Login Widget
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

@@ -30,7 +30,7 @@ class StatsChartState extends State<StatsChart> {
 
   Future<void> getUserPoints() async {
     await getUser();
-    for (int i = 0; i < 7; i++) {
+    for (int i = 6; i >= 0; i--) {
       dates.add(format.format(DateTime.now().subtract(Duration(days: i))));
     }
     QueryBuilder<ParseObject> queryUserData =
@@ -44,6 +44,7 @@ class StatsChartState extends State<StatsChart> {
       for (ParseObject object in objects) {
         int index = dates.indexWhere((element) =>
             element.compareTo(format.format(object.get('createdAt'))) == 0);
+        if (index == -1) continue;
         points[index] += object.get<int>('gainedPoints')!;
       }
       addPointsAndDates();
@@ -71,12 +72,14 @@ class StatsChartState extends State<StatsChart> {
                 // Enable legend
                 legend: Legend(
                   isVisible: true,
+                  toggleSeriesVisibility: false,
                   position: LegendPosition.bottom,
                 ),
                 // Enable tooltip
                 tooltipBehavior: TooltipBehavior(enable: true),
                 series: <ChartSeries<_PointsData, String>>[
                   ColumnSeries<_PointsData, String>(
+                    animationDuration: 2000,
                     dataSource: data,
                     xValueMapper: (_PointsData points, _) => points.day,
                     yValueMapper: (_PointsData points, _) => points.points,

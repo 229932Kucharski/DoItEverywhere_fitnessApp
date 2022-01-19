@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:DIE/addidtional/route_to_down.dart';
 import 'package:DIE/pages/user/user_settings_page.dart';
-import 'package:DIE/pages/user/user_stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:DIE/addidtional/globals.dart' as globals;

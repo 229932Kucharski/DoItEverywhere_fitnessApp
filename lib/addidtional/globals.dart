@@ -1,5 +1,7 @@
 library DIE.globals;
 
+import 'package:flutter/material.dart';
+
 int maxPoints = 100000;
 String? username = '';
 DateTime? registerDate;
@@ -18,4 +20,24 @@ bool isRedundentClick(DateTime currentTime) {
   }
   loginClickTime = currentTime;
   return false;
+}
+
+// Show error alert
+void showError(BuildContext context, String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Error!"),
+        content: Text(errorMessage),
+        actions: <Widget>[
+          TextButton(
+              onPressed: () => {
+                    Navigator.pop(context),
+                  },
+              child: const Text("Ok"))
+        ],
+      );
+    },
+  );
 }

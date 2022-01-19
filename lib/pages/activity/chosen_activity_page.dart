@@ -31,11 +31,6 @@ class _ChosenActivityState extends State<ChosenActivity> {
   int seconds = 0;
   int points = 0;
 
-  Future<ParseUser?> getUser() async {
-    currentUser = await ParseUser.currentUser() as ParseUser?;
-    return currentUser;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -62,8 +57,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
     await user.save();
   }
 
-  Future<void> saveData() async {
-    await getUser();
+  Future<bool> saveData() async {
+    currentUser = await ParseUser.currentUser() as ParseUser?;
     double distance = double.parse((totalDistance).toStringAsFixed(2));
     final userActivity = ParseObject('UserActivity')
       ..set("userId", currentUser)
@@ -72,7 +67,14 @@ class _ChosenActivityState extends State<ChosenActivity> {
       ..set('activityDistance', distance)
       ..set('gainedPoints', points)
       ..set('activityIcon', chosenActivity!.icon);
-    await userActivity.save();
+    final ParseResponse parseResponse = await userActivity.save();
+    if (parseResponse.success) {
+      return true;
+    } else {
+      globals.showError(context,
+          "Cant save activity. Please check your Internet connection and restart application");
+      return false;
+    }
   }
 
   void getTime() {
@@ -151,18 +153,20 @@ class _ChosenActivityState extends State<ChosenActivity> {
                             IconButton(
                               onPressed: () async {
                                 if (!globals.isRedundentClick(DateTime.now())) {
-                                  Navigator.pop(context);
                                   int minutes = seconds ~/ 60;
                                   points = minutes * chosenActivity!.points!;
-                                  stopWatchTimer.onExecute
-                                      .add(StopWatchExecute.reset);
                                   if (points > 0) {
-                                    await saveData();
+                                    if (await saveData() == false) {
+                                      return;
+                                    }
+                                    Navigator.pop(context);
                                     await updateUser();
                                   }
                                   totalDistance = 0.0;
                                   currentSpeed = 0.0;
                                   isPointsRestartNeeded = true;
+                                  stopWatchTimer.onExecute
+                                      .add(StopWatchExecute.reset);
                                 }
                               },
                               iconSize: 60,

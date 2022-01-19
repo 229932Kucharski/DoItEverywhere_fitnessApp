@@ -64,6 +64,21 @@ class _UserActivitiesListState extends State<UserActivitiesList> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return const Padding(
+                padding:
+                    EdgeInsets.only(left: 35, right: 35, top: 120, bottom: 10),
+                child: Text(
+                  'History is empty.\n\nDo some acitvities and come back later',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'SourceCodePro',
+                  ),
+                ),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
               child: SizedBox(

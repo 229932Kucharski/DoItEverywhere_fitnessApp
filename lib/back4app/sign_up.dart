@@ -1,3 +1,4 @@
+import 'package:DIE/addidtional/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:DIE/addidtional/globals.dart' as globals;
@@ -128,25 +129,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void showError(String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Error!"),
-          content: Text(errorMessage),
-          actions: <Widget>[
-            TextButton(
-                onPressed: () => {
-                      Navigator.pop(context),
-                    },
-                child: const Text("Ok"))
-          ],
-        );
-      },
-    );
-  }
-
   Future<void> createUserPoints(ParseUser user) async {
     final todo = ParseObject('UserData')
       ..set('user', user)
@@ -168,7 +150,7 @@ class _SignUpState extends State<SignUp> {
     final password = controllerPassword.text.trim();
 
     if (username.isEmpty || email.isEmpty || password.isEmpty) {
-      showError("Some fields are still empty");
+      showError(context, "Some fields are still empty");
       return;
     }
 
@@ -184,7 +166,7 @@ class _SignUpState extends State<SignUp> {
       await createUserPoints(user);
       await createUserFavAct(user);
     } else {
-      showError(response.error!.message);
+      showError(context, response.error!.message);
     }
   }
 }

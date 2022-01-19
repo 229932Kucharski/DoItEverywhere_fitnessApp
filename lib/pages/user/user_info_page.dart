@@ -46,10 +46,7 @@ class UserInfoPage extends StatelessWidget {
                                 Navigator.pop(context);
                               }
                             },
-                            child: Hero(
-                                tag: "test",
-                                child: const Icon(Icons.contacts_rounded,
-                                    size: 60)),
+                            child: const Icon(Icons.contacts_rounded, size: 60),
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                   const CircleBorder()),
