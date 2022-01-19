@@ -42,7 +42,7 @@ class _UserHistoryNavigatorState extends State<UserHistoryNavigator> {
                 _onItemTapped(_selectedIndex);
               }
             } else if (details.primaryVelocity! < 0) {
-              if (_selectedIndex < 2) {
+              if (_selectedIndex < 1) {
                 _selectedIndex += 1;
                 onPageChanged(_selectedIndex++);
                 _onItemTapped(_selectedIndex);
