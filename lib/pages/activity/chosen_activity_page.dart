@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:DIE/addidtional/globals.dart' as globals;
+import 'package:wakelock/wakelock.dart';
 
 class ChosenActivityController {
   late void Function() listenLocation;
@@ -200,7 +201,10 @@ class _ChosenActivityState extends State<ChosenActivity> {
                             stopWatchTimer.onExecute
                                 .add(StopWatchExecute.start);
                             (chosenActivity?.isGpsRequired == true)
-                                ? myController.listenLocation()
+                                ? {
+                                    myController.listenLocation(),
+                                    Wakelock.enable(),
+                                  }
                                 : null;
                           },
                           icon: ImageIcon(
@@ -242,7 +246,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
                             (chosenActivity?.isGpsRequired == true)
                                 ? {
                                     myController.stopLocation(),
-                                    myController.resetLastLocation()
+                                    myController.resetLastLocation(),
+                                    Wakelock.enable(),
                                   }
                                 : null;
                           },
