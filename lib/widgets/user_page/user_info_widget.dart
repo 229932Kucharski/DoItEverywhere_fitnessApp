@@ -95,7 +95,7 @@ class _UserInfoState extends State<UserInfoWidget> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          activityDistance.toString() + "km",
+                          activityDistance.toStringAsFixed(2) + "km",
                           style: const TextStyle(
                               fontSize: 25,
                               fontFamily: 'SourceCodePro',
