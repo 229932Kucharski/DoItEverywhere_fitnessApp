@@ -14,7 +14,7 @@ bool isRedundentClick(DateTime currentTime) {
     loginClickTime = currentTime;
     return false;
   }
-  if (currentTime.difference(loginClickTime!).inMilliseconds < 1500) {
+  if (currentTime.difference(loginClickTime!).inMilliseconds < 1200) {
     //set this difference time in seconds
     return true;
   }
