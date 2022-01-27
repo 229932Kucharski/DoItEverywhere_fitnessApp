@@ -26,55 +26,48 @@ class _UserHistoryNavigatorState extends State<UserHistoryNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        MoveToBackground.moveTaskToBack();
-        return false;
-      },
-      child: Scaffold(
-        extendBody: true,
-        body: GestureDetector(
-          onHorizontalDragEnd: (DragEndDetails details) {
-            if (details.primaryVelocity! > 0) {
-              if (_selectedIndex > 0) {
-                _selectedIndex -= 1;
-                onPageChanged(_selectedIndex);
-                _onItemTapped(_selectedIndex);
-              }
-            } else if (details.primaryVelocity! < 0) {
-              if (_selectedIndex < 1) {
-                _selectedIndex += 1;
-                onPageChanged(_selectedIndex++);
-                _onItemTapped(_selectedIndex);
-              }
+    return Scaffold(
+      extendBody: true,
+      body: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! > 0) {
+            if (_selectedIndex > 0) {
+              _selectedIndex -= 1;
+              onPageChanged(_selectedIndex);
+              _onItemTapped(_selectedIndex);
             }
-          },
-          child: PageView(
-            controller: _pageController,
-            children: const [
-              UserHistoryPage(),
-              UserStatsPage(),
-            ],
-            onPageChanged: onPageChanged,
-            physics: const NeverScrollableScrollPhysics(),
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: _onItemTapped,
-          backgroundColor: const Color(0xFF140B37),
-          selectedItemColor: Colors.amber[800],
-          unselectedItemColor: Colors.white,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.history,
-                ),
-                label: "History"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart), label: "Stats"),
+          } else if (details.primaryVelocity! < 0) {
+            if (_selectedIndex < 1) {
+              _selectedIndex += 1;
+              onPageChanged(_selectedIndex++);
+              _onItemTapped(_selectedIndex);
+            }
+          }
+        },
+        child: PageView(
+          controller: _pageController,
+          children: const [
+            UserHistoryPage(),
+            UserStatsPage(),
           ],
-          currentIndex: _selectedIndex,
+          onPageChanged: onPageChanged,
+          physics: const NeverScrollableScrollPhysics(),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onItemTapped,
+        backgroundColor: const Color(0xFF140B37),
+        selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.history,
+              ),
+              label: "History"),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats"),
+        ],
+        currentIndex: _selectedIndex,
       ),
     );
   }

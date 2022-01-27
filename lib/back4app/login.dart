@@ -152,7 +152,8 @@ class _LoginState extends State<Login> {
       Navigator.push(context,
           RouteToUp(exitPage: const Login(), enterPage: const HomePage()));
     } else {
-      showError(context, "Please check your Internet connection.");
+      showError(context,
+          response.error!.message + " Also check your Internet connection");
     }
   }
 }

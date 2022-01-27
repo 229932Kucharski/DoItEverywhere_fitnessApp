@@ -65,9 +65,14 @@ class _ActivityListState extends State<ActivityList> {
         String? icon = activity.get<String>('icon_name');
         int? points = activity.get<int>('Points');
         bool? isGpsReq = activity.get<bool>('isGpsRequired');
+        bool? isFav = (favActivitiesNames!.contains(name)) ? true : false;
         Activity act = Activity(
-            name: name, icon: icon, points: points, isGpsRequired: isGpsReq);
-        if (favActivitiesNames!.contains(name)) {
+            name: name,
+            icon: icon,
+            points: points,
+            isGpsRequired: isGpsReq,
+            isFav: isFav);
+        if (favActivitiesNames.contains(name)) {
           favActivities.add(act);
           continue;
         } else {
@@ -118,9 +123,23 @@ class _ActivityListState extends State<ActivityList> {
                                         fontSize: 20,
                                         fontFamily: 'SourceCodePro',
                                       )),
-                                  ImageIcon(
-                                    AssetImage("assets/icons/" + map.icon!),
-                                    color: Colors.amber[800],
+                                  Row(
+                                    children: [
+                                      (map.isFav!)
+                                          ? ImageIcon(
+                                              const AssetImage(
+                                                  "assets/icons/heart.png"),
+                                              color: Colors.amber[800],
+                                            )
+                                          : const Text(""),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      ImageIcon(
+                                        AssetImage("assets/icons/" + map.icon!),
+                                        color: Colors.amber[800],
+                                      )
+                                    ],
                                   )
                                 ],
                               ));

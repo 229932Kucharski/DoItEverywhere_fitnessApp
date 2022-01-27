@@ -162,6 +162,8 @@ class _ChosenActivityState extends State<ChosenActivity> {
                                     }
                                     Navigator.pop(context);
                                     await updateUser();
+                                  } else {
+                                    Navigator.pop(context);
                                   }
                                   totalDistance = 0.0;
                                   currentSpeed = 0.0;

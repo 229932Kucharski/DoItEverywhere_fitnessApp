@@ -47,8 +47,8 @@ class StatsChartState extends State<StatsChart> {
         if (index == -1) continue;
         points[index] += object.get<int>('gainedPoints')!;
       }
-      addPointsAndDates();
     }
+    addPointsAndDates();
   }
 
   Future<void> addPointsAndDates() async {
