@@ -22,6 +22,11 @@ Then execute the following command in console to run the application
 flutter run
 ```
 
+## Download App
+<a href="https://play.google.com/store/apps/details?id=pl.app.DIE&hl=pl&gl=US">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"></img>
+</a>
+
 ### Gifs from app
 <p>
 <img src="https://user-images.githubusercontent.com/55559640/150139849-58128ae5-2c98-4cce-b28f-769f303292bb.gif" width="200">
